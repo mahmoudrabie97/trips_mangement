@@ -16,6 +16,7 @@ class HomeTasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeCubit.get(context).getTripsForCurrentUser(context: context);
+
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (BuildContext context, state) {},
       builder: (BuildContext context, Object? state) {
@@ -35,10 +36,16 @@ class HomeTasksScreen extends StatelessWidget {
                 children: [
                   const SizedBox(height: 18),
                   DatePicker(
+                    onDateChange: (d) {
+                      HomeCubit.get(context).changedatePicker(d);
+                      HomeCubit.get(context).filterHomeTripsByDate(context);
+                      debugPrint(
+                          "Selected date: ${HomeCubit.get(context).selecteddate}");
+                    },
                     DateTime.now(),
                     height: 100,
                     width: 80,
-                    initialSelectedDate: DateTime.now(),
+                    initialSelectedDate: HomeCubit.get(context).selecteddate,
                     selectionColor: Colors.amber,
                     selectedTextColor: Colors.white,
                     dateTextStyle: const TextStyle(
@@ -72,21 +79,61 @@ class HomeTasksScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  state is GetTripsForCurrentUserLoadingState
+                  state is GetTripsForCurrentUserLoadingState ||
+                          state is FilterHomeTripsByDateLoadingState
                       ? const Center(
                           child: CircularProgressIndicator(
                               color: AppColor.mainColor),
                         )
                       : SizedBox(
                           height: 400,
+                          // child: HomeCubit.get(context)
+                          //             .getTripsForCurrentUserList
+                          //             .isEmpty ||
+                          //         HomeCubit.get(context)
+                          //             .getfilterTripsForHomeList
+                          //             .isEmpty
+                          //     ? Stack(
+                          //         children: [
+                          //           Image.network(
+                          //               'https://cdn.dribbble.com/users/1365063/screenshots/3979985/na_vrhova__plocha_1.png'),
+                          //           Container(
+                          //             alignment: Alignment.topLeft,
+                          //             child: Text(
+                          //               'No trips found',
+                          //               style: Theme.of(context)
+                          //                   .textTheme
+                          //                   .titleLarge!
+                          //                   .copyWith(color: Colors.amber),
+                          //             ),
+                          //           )
+                          //         ],
+                          //       )
                           child: ListView.builder(
-                            itemCount: HomeCubit.get(context)
-                                .getTripsForCurrentUserList
-                                .length,
+                            itemCount:
+                                HomeCubit.get(context).selecteddate == null
+                                    ? HomeCubit.get(context)
+                                        .getTripsForCurrentUserList
+                                        .length
+                                    : HomeCubit.get(context)
+                                        .getfilterTripsForHomeList
+                                        .length,
                             itemBuilder: (BuildContext context, int index) {
-                              return TaskItemWidget(
-                                  tripmodel: HomeCubit.get(context)
-                                      .getTripsForCurrentUserList[index]);
+                              print(
+                                  'listttttttttttttt ${HomeCubit.get(context).getTripsForCurrentUserList}');
+                              return HomeCubit.get(context).selecteddate == null
+                                  ? TaskItemWidget(
+                                      tripmodel: HomeCubit.get(context)
+                                          .getTripsForCurrentUserList[index],
+                                      mylist: HomeCubit.get(context)
+                                          .getTripsForCurrentUserList,
+                                    )
+                                  : TaskItemWidget(
+                                      tripmodel: HomeCubit.get(context)
+                                          .getfilterTripsForHomeList[index],
+                                      mylist: HomeCubit.get(context)
+                                          .getfilterTripsForHomeList,
+                                    );
                             },
                           ),
                         ),

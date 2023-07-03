@@ -22,7 +22,7 @@ class LocationsInfo extends StatelessWidget {
               const SizedBox(
                 width: 20,
               ),
-              Column(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomText(text: 'From :'),
@@ -46,7 +46,7 @@ class LocationsInfo extends StatelessWidget {
               const SizedBox(
                 width: 20,
               ),
-              Column(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomText(text: 'To :'),

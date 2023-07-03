@@ -35,3 +35,23 @@ class ChangeTripStatusLoadingState extends HomeStates {}
 class ChangeTripStatusSucessState extends HomeStates {}
 
 class ChangeTripStatusErrorState extends HomeStates {}
+
+class UpdateSelectedDateState extends HomeStates {}
+
+class NoTripsFoundState extends HomeStates {}
+
+class FilterTripsByDateSuccessState extends HomeStates {}
+
+class FilterTripsByDateLoadingState extends HomeStates {}
+
+class NoFilterTripsByDateSuccessState extends HomeStates {}
+
+class FilterCompletedTripsByDateSuccessState extends HomeStates {}
+
+class FilterCompletedTripsByDateLoadingState extends HomeStates {}
+
+class NoFilterCompletedTripsState extends HomeStates {}
+
+class FilterHomeTripsByDateSuccessState extends HomeStates {}
+
+class FilterHomeTripsByDateLoadingState extends HomeStates {}

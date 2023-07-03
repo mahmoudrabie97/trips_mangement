@@ -23,6 +23,7 @@ class TaskDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeCubit.get(context).getTripsDetails(context: context, id: tripipid);
+    HomeCubit.get(context).getcurrentLocation();
     return Scaffold(
       appBar: detailspageappbar(
           context,
@@ -38,12 +39,10 @@ class TaskDetailsScreen extends StatelessWidget {
           final ride = HomeCubit.get(context).ride;
 
           if (ride == null) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(color: Colors.amber),
             );
           }
-
-          HomeCubit.get(context).getcurrentLocation();
 
           return ListView(
             children: [

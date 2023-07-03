@@ -1,4 +1,3 @@
-import 'package:drive_app/cubit/homecubit/homecubit.dart';
 import 'package:drive_app/utilites/appcolors.dart';
 import 'package:drive_app/utilites/extentionhelper.dart';
 import 'package:drive_app/utilites/widgets/customtext.dart';
@@ -11,13 +10,16 @@ class TaskCompletedItemWidget extends StatelessWidget {
   const TaskCompletedItemWidget({
     super.key,
     required this.tripmodel,
+    required this.mylist,
   });
   final Trip tripmodel;
+  final List mylist;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        //HomeCubit.get(context).getcurrentLocation();
         context.push(TaskDetailsScreen(
           tripipid: tripmodel.id,
         ));
@@ -79,9 +81,9 @@ class TaskCompletedItemWidget extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 0),
                             child: Row(
                               children: [
-                                Icon(Icons.remove_red_eye,
+                                const Icon(Icons.remove_red_eye,
                                     color: AppColor.mainColor),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 CustomText(
@@ -99,9 +101,9 @@ class TaskCompletedItemWidget extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 0),
                               child: Row(
                                 children: [
-                                  Icon(IconlyLight.location,
+                                  const Icon(IconlyLight.location,
                                       color: AppColor.mainColor),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   CustomText(

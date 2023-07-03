@@ -45,9 +45,16 @@ class LoginCubit extends Cubit<LoginStates> {
         final responseBody = json.decode(value.body);
         debugPrint(responseBody['error_description']);
         ShowMyDialog.showMsg(
-            context, responseBody['error_description'], ' message');
+            context, responseBody['error_description'], ' error');
 
         emit(LoginErrorEmailorpasswordState());
+      } else if (value.statusCode == 500) {
+        ShowMyDialog.showMsg(context, 'internal server error', 'error');
+        emit(LoginErrorState());
+      } else {
+        ShowMyDialog.showMsg(
+            context, 'unkown error, please try later', 'error');
+        emit(LoginErrorState());
       }
     }).catchError((error) {
       debugPrint('An error occurred: $error');

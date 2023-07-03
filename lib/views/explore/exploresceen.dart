@@ -5,7 +5,6 @@ import 'package:drive_app/utilites/custommethods.dart';
 import 'package:drive_app/utilites/widgets/customtext.dart';
 import 'package:drive_app/utilites/widgets/customtextformfield.dart';
 import 'package:drive_app/views/explore/widgets/taskcomleteitem.dart';
-import 'package:drive_app/views/trips/widgets/tripspickeditrm.dart';
 import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +16,8 @@ class ExplporeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeCubit.get(context).getcompletedTransactions(context: context);
+    print('selecttttttttttttttttyy${HomeCubit.get(context).selecteddate}');
+
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (BuildContext context, state) {},
       builder: (BuildContext context, Object? state) {
@@ -36,10 +37,17 @@ class ExplporeScreen extends StatelessWidget {
                 children: [
                   const SizedBox(height: 18),
                   DatePicker(
+                    onDateChange: (d) {
+                      HomeCubit.get(context).changedatePicker(d);
+                      HomeCubit.get(context)
+                          .filterCompletedTripsByDate(context);
+                      debugPrint(
+                          "Selected date: ${HomeCubit.get(context).selecteddate}");
+                    },
                     DateTime.now(),
                     height: 100,
                     width: 80,
-                    initialSelectedDate: DateTime.now(),
+                    initialSelectedDate: HomeCubit.get(context).selecteddate,
                     selectionColor: Colors.amber,
                     selectedTextColor: Colors.white,
                     dateTextStyle: const TextStyle(
@@ -67,13 +75,14 @@ class ExplporeScreen extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.only(left: 20),
                     child: CustomText(
-                      text: 'Today Tasks',
+                      text: 'Completed Trips',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 20),
-                  state is GetCompletedTransactionsrLoadingState
+                  state is GetCompletedTransactionsrLoadingState ||
+                          state is FilterCompletedTripsByDateLoadingState
                       ? const Center(
                           child: CircularProgressIndicator(
                               color: AppColor.mainColor),
@@ -81,13 +90,29 @@ class ExplporeScreen extends StatelessWidget {
                       : SizedBox(
                           height: 400,
                           child: ListView.builder(
-                            itemCount: HomeCubit.get(context)
-                                .getcomplertedTransactionslist
-                                .length,
+                            itemCount:
+                                HomeCubit.get(context).selecteddate == null
+                                    ? HomeCubit.get(context)
+                                        .getcomplertedTransactionslist
+                                        .length
+                                    : HomeCubit.get(context)
+                                        .getfiltercomplertedTransactionslist
+                                        .length,
                             itemBuilder: (BuildContext context, int index) {
-                              return TaskCompletedItemWidget(
-                                  tripmodel: HomeCubit.get(context)
-                                      .getcomplertedTransactionslist[index]);
+                              return HomeCubit.get(context).selecteddate == null
+                                  ? TaskCompletedItemWidget(
+                                      tripmodel: HomeCubit.get(context)
+                                          .getcomplertedTransactionslist[index],
+                                      mylist: HomeCubit.get(context)
+                                          .getcomplertedTransactionslist,
+                                    )
+                                  : TaskCompletedItemWidget(
+                                      tripmodel: HomeCubit.get(context)
+                                              .getfiltercomplertedTransactionslist[
+                                          index],
+                                      mylist: HomeCubit.get(context)
+                                          .getfiltercomplertedTransactionslist,
+                                    );
                             },
                           ),
                         ),

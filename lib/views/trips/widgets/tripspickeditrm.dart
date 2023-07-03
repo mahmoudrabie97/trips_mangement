@@ -11,8 +11,10 @@ class TaskPickedItemWidget extends StatelessWidget {
   const TaskPickedItemWidget({
     super.key,
     required this.tripmodel,
+    required this.mylist,
   });
   final Trip tripmodel;
+  final List mylist;
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +81,9 @@ class TaskPickedItemWidget extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 0),
                             child: Row(
                               children: [
-                                Icon(Icons.remove_red_eye,
+                                const Icon(Icons.remove_red_eye,
                                     color: AppColor.mainColor),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 CustomText(
@@ -99,9 +101,9 @@ class TaskPickedItemWidget extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 0),
                               child: Row(
                                 children: [
-                                  Icon(IconlyLight.location,
+                                  const Icon(IconlyLight.location,
                                       color: AppColor.mainColor),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   CustomText(

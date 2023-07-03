@@ -4,7 +4,6 @@ import 'package:drive_app/utilites/appcolors.dart';
 import 'package:drive_app/utilites/custommethods.dart';
 import 'package:drive_app/utilites/widgets/customtext.dart';
 import 'package:drive_app/utilites/widgets/customtextformfield.dart';
-import 'package:drive_app/views/hometasks/widgets/taskitemwidget.dart';
 import 'package:drive_app/views/trips/widgets/tripspickeditrm.dart';
 import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
@@ -17,6 +16,9 @@ class TripsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeCubit.get(context).getPickedUpTransactionsByDriverId(context: context);
+
+    print(HomeCubit.get(context).selecteddate);
+
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (BuildContext context, state) {},
       builder: (BuildContext context, Object? state) {
@@ -36,10 +38,16 @@ class TripsScreen extends StatelessWidget {
                 children: [
                   const SizedBox(height: 18),
                   DatePicker(
+                    onDateChange: (d) {
+                      HomeCubit.get(context).changedatePicker(d);
+                      HomeCubit.get(context).filterpickedupTripsByDate(context);
+                      debugPrint(
+                          "Selected date: ${HomeCubit.get(context).selecteddate}");
+                    },
                     DateTime.now(),
                     height: 100,
                     width: 80,
-                    initialSelectedDate: DateTime.now(),
+                    initialSelectedDate: HomeCubit.get(context).selecteddate,
                     selectionColor: Colors.amber,
                     selectedTextColor: Colors.white,
                     dateTextStyle: const TextStyle(
@@ -67,13 +75,14 @@ class TripsScreen extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.only(left: 20),
                     child: CustomText(
-                      text: 'Today Tasks',
+                      text: 'Picked trips',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 20),
-                  state is GetPickedUpTransactionsrLoadingState
+                  state is GetPickedUpTransactionsrLoadingState ||
+                          state is FilterTripsByDateLoadingState
                       ? const Center(
                           child: CircularProgressIndicator(
                               color: AppColor.mainColor),
@@ -81,13 +90,28 @@ class TripsScreen extends StatelessWidget {
                       : SizedBox(
                           height: 400,
                           child: ListView.builder(
-                            itemCount: HomeCubit.get(context)
-                                .getPickedUpTransactionslist
-                                .length,
+                            itemCount:
+                                HomeCubit.get(context).selecteddate == null
+                                    ? HomeCubit.get(context)
+                                        .getPickedUpTransactionslist
+                                        .length
+                                    : HomeCubit.get(context)
+                                        .getfilterTripsForPickedUpList
+                                        .length,
                             itemBuilder: (BuildContext context, int index) {
-                              return TaskPickedItemWidget(
-                                  tripmodel: HomeCubit.get(context)
-                                      .getPickedUpTransactionslist[index]);
+                              return HomeCubit.get(context).selecteddate == null
+                                  ? TaskPickedItemWidget(
+                                      tripmodel: HomeCubit.get(context)
+                                          .getPickedUpTransactionslist[index],
+                                      mylist: HomeCubit.get(context)
+                                          .getPickedUpTransactionslist,
+                                    )
+                                  : TaskPickedItemWidget(
+                                      tripmodel: HomeCubit.get(context)
+                                          .getfilterTripsForPickedUpList[index],
+                                      mylist: HomeCubit.get(context)
+                                          .getfilterTripsForPickedUpList,
+                                    );
                             },
                           ),
                         ),

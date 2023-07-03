@@ -11,11 +11,14 @@ class TaskItemWidget extends StatelessWidget {
   const TaskItemWidget({
     super.key,
     required this.tripmodel,
+    required this.mylist,
   });
   final Trip tripmodel;
+  final List mylist;
 
   @override
   Widget build(BuildContext context) {
+    print('listttttttt$mylist');
     return GestureDetector(
       onTap: () {
         context.push(TaskDetailsScreen(
