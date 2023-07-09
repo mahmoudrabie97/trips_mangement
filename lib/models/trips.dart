@@ -1,19 +1,28 @@
 class Trip {
-  int id;
-  int locationFromId;
-  LocationTrip locationFrom;
-  int locationToId;
-  LocationTrip locationTo;
-  int guestId;
-  Guest guest;
-  int driverId;
-  Driver driver;
-  int carId;
-  Car car;
-  String flightNumber;
-  DateTime arrivalDateTime;
-  int terminal;
-  String coordinatorPhoneNumber;
+  final int id;
+  final int locationFromId;
+  final Locationtrip locationFrom;
+  final int locationToId;
+  final Locationtrip locationTo;
+  final int? guestId;
+  final dynamic guest;
+  final int driverId;
+  final Driver driver;
+  final int carId;
+  final Car car;
+  final String? flightNumber;
+  final DateTime arrivalDateTime;
+  final String? arrivalDateTimeFormat;
+  final int terminal;
+  final String? coordinatorPhoneNumber;
+  final int currentTransactionStatus;
+  final String? transactionStatusName;
+  final String? addedDate;
+  final bool isConfirmed;
+  final int? carTypeId;
+  final dynamic carType;
+  final int numbersOfGuest;
+  final String? note;
 
   Trip({
     required this.id,
@@ -29,85 +38,96 @@ class Trip {
     required this.car,
     required this.flightNumber,
     required this.arrivalDateTime,
+    required this.arrivalDateTimeFormat,
     required this.terminal,
     required this.coordinatorPhoneNumber,
+    required this.currentTransactionStatus,
+    required this.transactionStatusName,
+    required this.addedDate,
+    required this.isConfirmed,
+    required this.carTypeId,
+    required this.carType,
+    required this.numbersOfGuest,
+    required this.note,
   });
 
   factory Trip.fromJson(Map<String, dynamic> json) {
     return Trip(
-      id: json['Id'] as int,
-      locationFromId: json['LocationFromId'] as int,
-      locationFrom:
-          LocationTrip.fromJson(json['LocationFrom'] as Map<String, dynamic>),
-      locationToId: json['LocationToId'] as int,
-      locationTo:
-          LocationTrip.fromJson(json['LocationTo'] as Map<String, dynamic>),
-      guestId: json['GuestId'] as int,
-      guest: Guest.fromJson(json['Guest'] as Map<String, dynamic>),
-      driverId: json['DriverId'] as int,
-      driver: Driver.fromJson(json['Driver'] as Map<String, dynamic>),
-      carId: json['CarId'] as int,
-      car: Car.fromJson(json['Car'] as Map<String, dynamic>),
-      flightNumber: json['FlightNumber'] as String,
-      arrivalDateTime: DateTime.parse(json['ArrivalDateTime'] as String),
-      terminal: json['Terminal'] as int,
-      coordinatorPhoneNumber: json['CoordinatorPhonNumber'] as String,
+      id: json['Id'],
+      locationFromId: json['LocationFromId'],
+      locationFrom: Locationtrip.fromJson(json['LocationFrom']),
+      locationToId: json['LocationToId'],
+      locationTo: Locationtrip.fromJson(json['LocationTo']),
+      guestId: json['GuestId'],
+      guest: json['Guest'],
+      driverId: json['DriverId'],
+      driver: Driver.fromJson(json['Driver']),
+      carId: json['CarId'],
+      car: Car.fromJson(json['Car']),
+      flightNumber: json['FlightNumber'],
+      arrivalDateTime: DateTime.parse(json['ArrivalDateTime']),
+      arrivalDateTimeFormat: json['ArrivalDateTimeFormat'],
+      terminal: json['Terminal'],
+      coordinatorPhoneNumber: json['CoordinatorPhonNumber'],
+      currentTransactionStatus: json['CurrentTransactionStatus'],
+      transactionStatusName: json['TransactionStatusName'],
+      addedDate: json['AddedDate'],
+      isConfirmed: json['IsConfirmed'],
+      carTypeId: json['CarTypeId'],
+      carType: json['CarType'],
+      numbersOfGuest: json['NumbersOfGuest'],
+      note: json['Note'],
     );
   }
 }
 
-class LocationTrip {
-  int id;
-  String name;
+class Locationtrip {
+  final int id;
+  final String? name;
 
-  LocationTrip({required this.id, required this.name});
+  Locationtrip({
+    required this.id,
+    required this.name,
+  });
 
-  factory LocationTrip.fromJson(Map<String, dynamic> json) {
-    return LocationTrip(
-      id: json['Id'] as int,
-      name: json['Name'] as String,
-    );
-  }
-}
-
-class Guest {
-  int id;
-  String name;
-
-  Guest({required this.id, required this.name});
-
-  factory Guest.fromJson(Map<String, dynamic> json) {
-    return Guest(
-      id: json['Id'] as int,
-      name: json['Name'] as String,
+  factory Locationtrip.fromJson(Map<String, dynamic> json) {
+    return Locationtrip(
+      id: json['Id'],
+      name: json['Name'],
     );
   }
 }
 
 class Driver {
-  int id;
-  String name;
+  final int id;
+  final String? name;
 
-  Driver({required this.id, required this.name});
+  Driver({
+    required this.id,
+    required this.name,
+  });
 
   factory Driver.fromJson(Map<String, dynamic> json) {
     return Driver(
-      id: json['Id'] as int,
-      name: json['Name'] as String,
+      id: json['Id'],
+      name: json['Name'],
     );
   }
 }
 
 class Car {
-  int id;
-  String name;
+  final int id;
+  final String? name;
 
-  Car({required this.id, required this.name});
+  Car({
+    required this.id,
+    required this.name,
+  });
 
   factory Car.fromJson(Map<String, dynamic> json) {
     return Car(
-      id: json['Id'] as int,
-      name: json['Name'] as String,
+      id: json['Id'],
+      name: json['Name'],
     );
   }
 }

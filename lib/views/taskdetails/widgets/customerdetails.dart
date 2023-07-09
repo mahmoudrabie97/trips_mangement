@@ -13,6 +13,8 @@ class CustomerDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      //mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
@@ -65,21 +67,80 @@ class CustomerDetails extends StatelessWidget {
           height: 15,
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
+          padding: const EdgeInsets.all(20),
           child: Row(
             children: [
-              Icon(IconlyLight.profile, color: Colors.amber),
-              SizedBox(
-                width: 5,
-              ),
-              CustomText(
-                text: State is GetTripsdetailsLoadingState
-                    ? '........'
-                    : 'Custome Name : ${HomeCubit.get(context).ride!.locationTo.name}',
-                fontSize: 14,
-              ),
+              Icon(Icons.person, color: Colors.amber),
+              Text('Customers names'),
             ],
           ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: SizedBox(
+            height: 120,
+            child: ListView.separated(
+                separatorBuilder: (context, index) {
+                  return SizedBox(
+                    width: 15,
+                  );
+                },
+                scrollDirection: Axis.horizontal,
+                itemCount:
+                    HomeCubit.get(context).ride!.transactionDetails.length,
+                itemBuilder: (context, index) {
+                  return customersname(context, index);
+                }),
+          ),
+          // child: Row(
+          //   children: [
+          //     customersname(context),
+          //     customersname(context),
+          //     customersname(context),
+          //   ],
+          // ),
+        ),
+      ],
+    );
+  }
+
+  Column customersname(BuildContext context, int i) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      //mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        CustomText(
+          text: State is GetTripsdetailsLoadingState
+              ? '........'
+              : ' ${HomeCubit.get(context).ride!.transactionDetails[i].guest.name}',
+          fontSize: 14,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        CircleAvatar(
+            minRadius: 30,
+            maxRadius: 30,
+            backgroundColor: Colors.cyan[100],
+            child: Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  shape: BoxShape.rectangle,
+                  image: DecorationImage(
+                      image: NetworkImage(
+                          'https://www.befunky.com/images/prismic/5ddfea42-7377-4bef-9ac4-f3bd407d52ab_landing-photo-to-cartoon-img5.jpeg?auto=avif,webp&format=jpg&width=863'),
+                      fit: BoxFit.cover),
+                ))),
+        SizedBox(
+          height: 10,
+        ),
+        CustomText(
+          text: State is GetTripsdetailsLoadingState
+              ? '........'
+              : ' ${HomeCubit.get(context).ride!.transactionDetails[i].arrivalDateTime}',
+          fontSize: 8,
         ),
       ],
     );

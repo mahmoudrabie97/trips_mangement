@@ -50,7 +50,7 @@ class TaskItemWidget extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: Text(
-                          tripmodel.guest.name,
+                          tripmodel.note ?? '',
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
@@ -88,7 +88,7 @@ class TaskItemWidget extends StatelessWidget {
                                   width: 5,
                                 ),
                                 CustomText(
-                                  text: tripmodel.locationFrom.name,
+                                  text: tripmodel.locationFrom.name ?? '',
                                   fontSize: 13,
                                 ),
                               ],
@@ -108,7 +108,7 @@ class TaskItemWidget extends StatelessWidget {
                                     width: 5,
                                   ),
                                   CustomText(
-                                    text: tripmodel.locationTo.name,
+                                    text: tripmodel.locationTo.name ?? '',
                                     fontSize: 13,
                                   ),
                                 ],
@@ -117,6 +117,19 @@ class TaskItemWidget extends StatelessWidget {
                           ),
                         ],
                       ),
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Row(
+                          children: [
+                            Icon(Icons.person, color: Colors.amber),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Text(tripmodel.numbersOfGuest.toString()),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),

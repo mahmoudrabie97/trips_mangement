@@ -33,7 +33,8 @@ class HomeCubit extends Cubit<HomeStates> {
   List<Trip> getfilterTripsForPickedUpList = [];
   List<Trip> getfilterTripsForHomeList = [];
 
-  Ride? ride;
+  Transaction? ride;
+  late LatLng newLatlng;
   HomeCubit() : super(InitialHomeState()) {
     origin = const Marker(
         markerId: MarkerId('driver'),
@@ -46,6 +47,7 @@ class HomeCubit extends Cubit<HomeStates> {
         strokeColor: Colors.amber,
         zIndex: 1,
         fillColor: Colors.amber.withAlpha(60));
+    newLatlng = const LatLng(28.1078099, 30.749215);
   }
 
   Future getTripsForCurrentUser({required BuildContext context}) {
@@ -66,15 +68,13 @@ class HomeCubit extends Cubit<HomeStates> {
         final responseBody = json.decode(value.body);
         print(responseBody);
         for (var item in responseBody) {
-          if (item != null && item.isNotEmpty) {
-            getTripsForCurrentUserList.add(Trip.fromJson(item));
-          }
+          getTripsForCurrentUserList.add(Trip.fromJson(item));
         }
 
         emit(GetTripsForCurrentUserSucessState());
       }
     }).catchError((error) {
-      print(error);
+      print('error $error');
       emit(GetTripsForCurrentUserErrorState());
     });
   }
@@ -149,14 +149,16 @@ class HomeCubit extends Cubit<HomeStates> {
       headers: headers,
     ).then((value) {
       if (value!.statusCode == 200) {
-        debugPrint(value.body);
+        debugPrint('vvvvvvvvvvvvvvvvvvvvvvv ${value.body}');
         final responseBody = json.decode(value.body);
         print(responseBody);
-        ride = Ride.fromJson(responseBody);
+        ride = Transaction.fromJson(responseBody);
+        print("ttttt$ride");
 
         emit(GetTripsdetailsSucessState());
       }
     }).catchError((error) {
+      print('rrrrrrrrrrrrrrrrrrrrrr$error');
       emit(GetTripsdetailsErrorState());
     });
   }
@@ -185,6 +187,7 @@ class HomeCubit extends Cubit<HomeStates> {
       }
       emit(ChangeTripStatusSucessState());
     }).catchError((error) {
+      print('ggggggggggggggg$error');
       emit(ChangeTripStatusErrorState());
     });
   }
@@ -210,8 +213,7 @@ class HomeCubit extends Cubit<HomeStates> {
         subscription!.cancel();
       }
       subscription = livelocation.onLocationChanged.listen((locationData) {
-        LatLng newLatlng =
-            LatLng(locationData.latitude, locationData.longitude);
+        newLatlng = LatLng(locationData.latitude, locationData.longitude);
         AppConstant.googleMapController!.animateCamera(
           CameraUpdate.newCameraPosition(
             CameraPosition(target: newLatlng, zoom: 18),

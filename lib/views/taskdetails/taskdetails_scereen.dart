@@ -22,6 +22,11 @@ class TaskDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(
+        'locccccccccccccc${HomeCubit.get(context).newLatlng.latitude.toString()} ');
+    print(
+        'locccccccccccccc${HomeCubit.get(context).newLatlng.longitude.toString()} ');
+
     HomeCubit.get(context).getTripsDetails(context: context, id: tripipid);
     HomeCubit.get(context).getcurrentLocation();
     return Scaffold(
@@ -101,7 +106,7 @@ class TaskDetailsScreen extends StatelessWidget {
                             const CustomText(
                                 text: 'Date & Time ', fontSize: 12),
                             CustomText(
-                              text: ride.arrivalDateTime.toIso8601String(),
+                              text: ride.arrivalDateTime ?? '',
                               fontSize: 12,
                               color: Colors.grey,
                             ),
@@ -133,6 +138,14 @@ class TaskDetailsScreen extends StatelessWidget {
                                     "TransactionId": tripipid.toString(),
                                     "TransactionStatus": '2',
                                     "AddedDate": "2023-06-20T15:43:45.773Z",
+                                    "Long": HomeCubit.get(context)
+                                        .newLatlng
+                                        .latitude
+                                        .toString(),
+                                    "Lat": HomeCubit.get(context)
+                                        .newLatlng
+                                        .latitude
+                                        .toString(),
                                     "IsDeleted": 'false'
                                   };
                                   HomeCubit.get(context).changetripStatus(
@@ -154,6 +167,14 @@ class TaskDetailsScreen extends StatelessWidget {
                                     "TransactionId": tripipid.toString(),
                                     "TransactionStatus": '3',
                                     "AddedDate": "2023-06-20T15:43:45.773Z",
+                                    "Long": HomeCubit.get(context)
+                                        .newLatlng
+                                        .latitude
+                                        .toString(),
+                                    "Lat": HomeCubit.get(context)
+                                        .newLatlng
+                                        .latitude
+                                        .toString(),
                                     "IsDeleted": 'false'
                                   };
                                   HomeCubit.get(context).changetripStatus(

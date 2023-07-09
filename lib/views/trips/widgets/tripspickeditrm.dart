@@ -49,7 +49,7 @@ class TaskPickedItemWidget extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: Text(
-                          tripmodel.guest.name,
+                          tripmodel.note ?? '',
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
@@ -87,7 +87,7 @@ class TaskPickedItemWidget extends StatelessWidget {
                                   width: 5,
                                 ),
                                 CustomText(
-                                  text: tripmodel.locationFrom.name,
+                                  text: tripmodel.locationFrom.name ?? '',
                                   fontSize: 13,
                                 ),
                               ],
@@ -107,7 +107,7 @@ class TaskPickedItemWidget extends StatelessWidget {
                                     width: 5,
                                   ),
                                   CustomText(
-                                    text: tripmodel.locationTo.name,
+                                    text: tripmodel.locationTo.name ?? '',
                                     fontSize: 13,
                                   ),
                                 ],

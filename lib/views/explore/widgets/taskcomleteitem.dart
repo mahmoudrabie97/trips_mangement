@@ -49,7 +49,7 @@ class TaskCompletedItemWidget extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: Text(
-                          tripmodel.guest.name,
+                          tripmodel.note ?? '',
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium!
@@ -59,7 +59,7 @@ class TaskCompletedItemWidget extends StatelessWidget {
                       ),
                       const Spacer(),
                       CustomText(
-                        text: tripmodel.arrivalDateTime.toIso8601String(),
+                        text: tripmodel.arrivalDateTime.toString(),
                         fontSize: 14,
                         color: Colors.grey,
                       ),
@@ -87,7 +87,7 @@ class TaskCompletedItemWidget extends StatelessWidget {
                                   width: 5,
                                 ),
                                 CustomText(
-                                  text: tripmodel.locationFrom.name,
+                                  text: tripmodel.locationFrom.name ?? '',
                                   fontSize: 13,
                                 ),
                               ],
@@ -107,7 +107,7 @@ class TaskCompletedItemWidget extends StatelessWidget {
                                     width: 5,
                                   ),
                                   CustomText(
-                                    text: tripmodel.locationTo.name,
+                                    text: tripmodel.locationTo.name ?? '',
                                     fontSize: 13,
                                   ),
                                 ],
