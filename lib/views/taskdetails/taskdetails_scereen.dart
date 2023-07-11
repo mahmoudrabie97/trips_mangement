@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:drive_app/cubit/homecubit/homecubit.dart';
 import 'package:drive_app/cubit/homecubit/homestates.dart';
 import 'package:drive_app/utilites/appcolors.dart';
@@ -12,13 +14,52 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class TaskDetailsScreen extends StatelessWidget {
+class TaskDetailsScreen extends StatefulWidget {
   const TaskDetailsScreen({Key? key, required this.tripipid}) : super(key: key);
   final int tripipid;
 
+  @override
+  State<TaskDetailsScreen> createState() => _TaskDetailsScreenState();
+}
+
+class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
 // 1- assignmt
-//2-piup
-  //3-done
+  Timer? timer;
+  int? status;
+
+  @override
+  void dispose() {
+    HomeCubit.get(context).stopTimer();
+    super.dispose();
+  }
+
+  // void startTimer() {
+  //   const duration = Duration(seconds: 20);
+
+  //   timer = Timer.periodic(duration, (Timer t) {
+  //     HomeCubit.get(context).changemessgestatus(false);
+  //     Map data = {
+  //       "Id": '0',
+  //       "TransactionId": widget.tripipid.toString(),
+  //       "TransactionStatus": status == 2 ? '2' : '3',
+  //       "AddedDate": "2023-06-20T15:43:45.773Z",
+  //       "Long": HomeCubit.get(context).newLatlng.longitude.toString(),
+  //       "Lat": HomeCubit.get(context).newLatlng.latitude.toString(),
+  //       "IsDeleted": 'false'
+  //     };
+  //     HomeCubit.get(context).changetripStatus(
+  //       stt: false,
+  //       data: data,
+  //       context: context,
+  //     );
+  //     HomeCubit.get(context)
+  //         .getTripsDetails(context: context, id: widget.tripipid);
+  //   });
+  // }
+
+  // void stopTimer() {
+  //   timer?.cancel();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +68,8 @@ class TaskDetailsScreen extends StatelessWidget {
     print(
         'locccccccccccccc${HomeCubit.get(context).newLatlng.longitude.toString()} ');
 
-    HomeCubit.get(context).getTripsDetails(context: context, id: tripipid);
+    HomeCubit.get(context)
+        .getTripsDetails(context: context, id: widget.tripipid);
     HomeCubit.get(context).getcurrentLocation();
     return Scaffold(
       appBar: detailspageappbar(
@@ -133,14 +175,23 @@ class TaskDetailsScreen extends StatelessWidget {
                             ? CustomButton(
                                 buttonText: 'Pick Up',
                                 onPressed: () {
+                                  HomeCubit.get(context).startTimer(
+                                      context: context,
+                                      id: widget.tripipid,
+                                      status: status);
+                                  setState(() {
+                                    status = 2;
+                                  });
+                                  HomeCubit.get(context)
+                                      .changemessgestatus(true);
                                   Map data = {
                                     "Id": '0',
-                                    "TransactionId": tripipid.toString(),
+                                    "TransactionId": widget.tripipid.toString(),
                                     "TransactionStatus": '2',
                                     "AddedDate": "2023-06-20T15:43:45.773Z",
                                     "Long": HomeCubit.get(context)
                                         .newLatlng
-                                        .latitude
+                                        .longitude
                                         .toString(),
                                     "Lat": HomeCubit.get(context)
                                         .newLatlng
@@ -149,43 +200,91 @@ class TaskDetailsScreen extends StatelessWidget {
                                     "IsDeleted": 'false'
                                   };
                                   HomeCubit.get(context).changetripStatus(
-                                      data: data, context: context);
+                                      stt: true, data: data, context: context);
                                   HomeCubit.get(context).getTripsDetails(
-                                      context: context, id: tripipid);
+                                      context: context, id: widget.tripipid);
                                 },
                                 buttonColor: AppColor.mainColor,
                                 txtColor: Colors.black,
                                 borderRadius: 15,
                               )
-                            : CustomButton(
-                                buttonText: ride.currentTransactionStatus == 2
-                                    ? 'done'
-                                    : 'completed',
-                                onPressed: () {
-                                  Map data = {
-                                    "Id": '0',
-                                    "TransactionId": tripipid.toString(),
-                                    "TransactionStatus": '3',
-                                    "AddedDate": "2023-06-20T15:43:45.773Z",
-                                    "Long": HomeCubit.get(context)
-                                        .newLatlng
-                                        .latitude
-                                        .toString(),
-                                    "Lat": HomeCubit.get(context)
-                                        .newLatlng
-                                        .latitude
-                                        .toString(),
-                                    "IsDeleted": 'false'
-                                  };
-                                  HomeCubit.get(context).changetripStatus(
-                                      data: data, context: context);
-                                  HomeCubit.get(context).getTripsDetails(
-                                      context: context, id: tripipid);
-                                },
-                                buttonColor: Colors.green,
-                                txtColor: Colors.black,
-                                borderRadius: 15,
-                              ),
+                            : ride.currentTransactionStatus == 2
+                                ? CustomButton(
+                                    buttonText: 'done',
+                                    onPressed: () {
+                                      HomeCubit.get(context)
+                                          .changemessgestatus(true);
+                                      setState(() {
+                                        status = 3;
+                                      });
+
+                                      //HomeCubit.get(context).stopTimer();
+                                      Map data = {
+                                        "Id": '0',
+                                        "TransactionId":
+                                            widget.tripipid.toString(),
+                                        "TransactionStatus": '3',
+                                        "AddedDate": "2023-06-20T15:43:45.773Z",
+                                        "Long": HomeCubit.get(context)
+                                            .newLatlng
+                                            .longitude
+                                            .toString(),
+                                        "Lat": HomeCubit.get(context)
+                                            .newLatlng
+                                            .latitude
+                                            .toString(),
+                                        "IsDeleted": 'false'
+                                      };
+                                      HomeCubit.get(context).changetripStatus(
+                                          stt: true,
+                                          data: data,
+                                          context: context);
+                                      HomeCubit.get(context).getTripsDetails(
+                                          context: context,
+                                          id: widget.tripipid);
+                                    },
+                                    buttonColor: Colors.green,
+                                    txtColor: Colors.black,
+                                    borderRadius: 15,
+                                  )
+                                : CustomButton(
+                                    buttonText:
+                                        ride.currentTransactionStatus == 3
+                                            ? 'reset car'
+                                            : 'completed',
+                                    onPressed: () {
+                                      HomeCubit.get(context)
+                                          .changemessgestatus(true);
+
+                                      HomeCubit.get(context).stopTimer();
+                                      Map data = {
+                                        "Id": '0',
+                                        "TransactionId":
+                                            widget.tripipid.toString(),
+                                        "TransactionStatus": '4',
+                                        "AddedDate": "2023-06-20T15:43:45.773Z",
+                                        "Long": HomeCubit.get(context)
+                                            .newLatlng
+                                            .longitude
+                                            .toString(),
+                                        "Lat": HomeCubit.get(context)
+                                            .newLatlng
+                                            .latitude
+                                            .toString(),
+                                        "IsDeleted": 'false'
+                                      };
+                                      HomeCubit.get(context).changetripStatus(
+                                          stt: true,
+                                          data: data,
+                                          context: context);
+                                      HomeCubit.get(context).getTripsDetails(
+                                          context: context,
+                                          id: widget.tripipid);
+                                    },
+                                    buttonColor: Colors.green,
+                                    txtColor: Colors.black,
+                                    borderRadius: 15,
+                                  ),
                       ),
                       const SizedBox(
                         height: 40,

@@ -61,7 +61,7 @@ class TaskItemWidget extends StatelessWidget {
                       const Spacer(),
                       CustomText(
                         text: tripmodel.arrivalDateTime.toIso8601String(),
-                        fontSize: 14,
+                        fontSize: 11,
                         color: Colors.grey,
                       ),
                     ],

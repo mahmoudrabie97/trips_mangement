@@ -55,3 +55,7 @@ class NoFilterCompletedTripsState extends HomeStates {}
 class FilterHomeTripsByDateSuccessState extends HomeStates {}
 
 class FilterHomeTripsByDateLoadingState extends HomeStates {}
+
+class ChangestState extends HomeStates {}
+
+class TimerState extends HomeStates {}

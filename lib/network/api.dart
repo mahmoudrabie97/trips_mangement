@@ -12,6 +12,7 @@ class CallApi {
       required String baseUrl,
       required String apiUrl,
       required Map<String, String> headers,
+      required bool st,
       required BuildContext context}) async {
     try {
       msg = '';
@@ -32,10 +33,11 @@ class CallApi {
       msg = 'Format Error: $e';
     }
 
-    if (msg != '') {
-      ShowMyDialog.showMsg(context, msg, 'error');
+    if (st == true) {
+      if (msg != '') {
+        ShowMyDialog.showMsg(context, msg, 'error');
+      }
     }
-
     // Add a default return statement with a value of null or throw an exception
     return null;
   }

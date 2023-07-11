@@ -21,6 +21,8 @@ class HomeCubit extends Cubit<HomeStates> {
   late Marker origin; //ده اللي بيعلم علي مكانك وانت في map
   late Circle circle;
   DateTime? selecteddate;
+  bool IshShowMessage = false;
+  Timer? timer;
 
   Completer<GoogleMapController> mapController = Completer();
 
@@ -57,6 +59,7 @@ class HomeCubit extends Cubit<HomeStates> {
     };
     emit(GetTripsForCurrentUserLoadingState());
     getTripsForCurrentUserList = [];
+    selecteddate = null;
     return CallApi.getData(
             baseUrl: baseurl,
             apiUrl: getTripsForCurrentUserurl,
@@ -86,6 +89,7 @@ class HomeCubit extends Cubit<HomeStates> {
     };
     emit(GetPickedUpTransactionsrLoadingState());
     getPickedUpTransactionslist = [];
+    selecteddate = null;
     CallApi.getData(
             baseUrl: baseurl,
             apiUrl: getPickedUpTransactionsByDriverIdUrl,
@@ -114,6 +118,7 @@ class HomeCubit extends Cubit<HomeStates> {
     };
     emit(GetCompletedTransactionsrLoadingState());
     getcomplertedTransactionslist = [];
+    selecteddate = null;
     return CallApi.getData(
             baseUrl: baseurl,
             apiUrl: getFinishedTransactionsUrl,
@@ -163,7 +168,13 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-  Future changetripStatus({required Map data, required BuildContext context}) {
+  void changemessgestatus(bool st) {
+    IshShowMessage = st;
+    emit(ChangestState());
+  }
+
+  Future changetripStatus(
+      {required Map data, required BuildContext context, required bool stt}) {
     Map<String, String> headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': 'Bearer ${AppConstant.token}'
@@ -175,15 +186,24 @@ class HomeCubit extends Cubit<HomeStates> {
       apiUrl: changeTripStatusurl,
       headers: headers,
       context: context,
+      st: stt,
     ).then((value) {
       final responseBody = json.decode(value!.body);
       if (ride!.currentTransactionStatus == 1) {
         ride!.currentTransactionStatus = 2;
-        ShowMyDialog.showMsg(context, responseBody['Message'], 'message');
+        if (IshShowMessage == true) {
+          ShowMyDialog.showMsg(context, responseBody['Message'], 'message');
+        }
       } else if (ride!.currentTransactionStatus == 2) {
         ride!.currentTransactionStatus = 3;
-
-        ShowMyDialog.showMsg(context, responseBody['Message'], 'message');
+        if (IshShowMessage == true) {
+          ShowMyDialog.showMsg(context, responseBody['Message'], 'message');
+        }
+      } else if (ride!.currentTransactionStatus == 3) {
+        ride!.currentTransactionStatus = 4;
+        if (IshShowMessage == true) {
+          ShowMyDialog.showMsg(context, responseBody['Message'], 'message');
+        }
       }
       emit(ChangeTripStatusSucessState());
     }).catchError((error) {
@@ -293,5 +313,33 @@ class HomeCubit extends Cubit<HomeStates> {
             trip.arrivalDateTime.day == selecteddate!.day)
         .toList();
     emit(FilterHomeTripsByDateSuccessState());
+  }
+
+  void startTimer(
+      {required BuildContext context, required int id, required int? status}) {
+    const duration = Duration(seconds: 20);
+
+    timer = Timer.periodic(duration, (Timer t) {
+      changemessgestatus(false);
+      Map data = {
+        "Id": '0',
+        "TransactionId": id.toString(),
+        "TransactionStatus": status == 2 ? '2' : '3',
+        "AddedDate": "2023-06-20T15:43:45.773Z",
+        "Long": newLatlng.longitude.toString(),
+        "Lat": newLatlng.latitude.toString(),
+        "IsDeleted": 'false'
+      };
+      changetripStatus(
+        stt: false,
+        data: data,
+        context: context,
+      );
+      getTripsDetails(context: context, id: id);
+    });
+  }
+
+  void stopTimer() {
+    timer?.cancel();
   }
 }

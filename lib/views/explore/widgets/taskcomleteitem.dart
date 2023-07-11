@@ -60,7 +60,7 @@ class TaskCompletedItemWidget extends StatelessWidget {
                       const Spacer(),
                       CustomText(
                         text: tripmodel.arrivalDateTime.toString(),
-                        fontSize: 14,
+                        fontSize: 11,
                         color: Colors.grey,
                       ),
                     ],
