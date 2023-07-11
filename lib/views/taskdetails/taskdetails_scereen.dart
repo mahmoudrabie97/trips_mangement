@@ -175,13 +175,13 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                             ? CustomButton(
                                 buttonText: 'Pick Up',
                                 onPressed: () {
+                                  status = 2;
+
                                   HomeCubit.get(context).startTimer(
                                       context: context,
                                       id: widget.tripipid,
                                       status: status);
-                                  setState(() {
-                                    status = 2;
-                                  });
+
                                   HomeCubit.get(context)
                                       .changemessgestatus(true);
                                   Map data = {
@@ -214,9 +214,8 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                                     onPressed: () {
                                       HomeCubit.get(context)
                                           .changemessgestatus(true);
-                                      setState(() {
-                                        status = 3;
-                                      });
+
+                                      status = 3;
 
                                       //HomeCubit.get(context).stopTimer();
                                       Map data = {
