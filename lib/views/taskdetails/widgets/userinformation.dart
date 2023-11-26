@@ -34,17 +34,19 @@ class UserInformationWidget extends StatelessWidget {
           children: [
             State is GetTripsdetailsLoadingState
                 ? Text('........')
-                : CustomText(text: HomeCubit.get(context).ride!.driver.name),
+                : CustomText(
+                    text: '',
+                  ), //' HomeCubit.get(context).ride!.driver!.name ?? ' ''),
             CustomText(
               text: State is GetTripsdetailsLoadingState
                   ? '........'
-                  : HomeCubit.get(context).ride!.car.name,
+                  : HomeCubit.get(context).ride!.driver!.name ?? '',
               fontSize: 12,
             ),
             CustomText(
               text: State is GetTripsdetailsLoadingState
                   ? '........'
-                  : HomeCubit.get(context).ride!.car.id.toString(),
+                  : '', //HomeCubit.get(context).ride!.car.id.toString(),
               fontSize: 12,
             ),
           ],

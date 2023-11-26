@@ -1,133 +1,148 @@
 class Trip {
-  final int id;
-  final int locationFromId;
-  final Locationtrip locationFrom;
-  final int locationToId;
-  final Locationtrip locationTo;
-  final int? guestId;
-  final dynamic guest;
-  final int driverId;
-  final Driver driver;
-  final int carId;
-  final Car car;
-  final String? flightNumber;
-  final DateTime arrivalDateTime;
-  final String? arrivalDateTimeFormat;
-  final int terminal;
-  final String? coordinatorPhoneNumber;
-  final int currentTransactionStatus;
-  final String? transactionStatusName;
-  final String? addedDate;
-  final bool isConfirmed;
-  final int? carTypeId;
-  final dynamic carType;
-  final int numbersOfGuest;
-  final String? note;
+  int? id;
+  int? locationFromId;
+  LocationFrom? locationFrom;
+  int? companyId;
+ dynamic company;
+  int? locationToId;
+  LocationFrom? locationTo;
+  dynamic guestId;
+  dynamic guest;
+  int? driverId;
+  LocationFrom? driver;
+  dynamic carId;
+  dynamic car;
+  String? flightNumber;
+  String? arrivalDateTime;
+  String? arrivalDateTimeFormat;
+  int? terminal;
+ dynamic coordinatorPhonNumber;
+  int? currentTransactionStatus;
+  String? transactionStatusName;
+  String? addedDate;
+  bool? isConfirmed;
+dynamic carTypeId;
+  dynamic carType;
+  int? numbersOfGuest;
+  String? note;
 
-  Trip({
-    required this.id,
-    required this.locationFromId,
-    required this.locationFrom,
-    required this.locationToId,
-    required this.locationTo,
-    required this.guestId,
-    required this.guest,
-    required this.driverId,
-    required this.driver,
-    required this.carId,
-    required this.car,
-    required this.flightNumber,
-    required this.arrivalDateTime,
-    required this.arrivalDateTimeFormat,
-    required this.terminal,
-    required this.coordinatorPhoneNumber,
-    required this.currentTransactionStatus,
-    required this.transactionStatusName,
-    required this.addedDate,
-    required this.isConfirmed,
-    required this.carTypeId,
-    required this.carType,
-    required this.numbersOfGuest,
-    required this.note,
-  });
+  Trip(
+      {this.id,
+      this.locationFromId,
+      this.locationFrom,
+      this.companyId,
+      this.company,
+      this.locationToId,
+      this.locationTo,
+      this.guestId,
+      this.guest,
+      this.driverId,
+      this.driver,
+      this.carId,
+      this.car,
+      this.flightNumber,
+      this.arrivalDateTime,
+      this.arrivalDateTimeFormat,
+      this.terminal,
+      this.coordinatorPhonNumber,
+      this.currentTransactionStatus,
+      this.transactionStatusName,
+      this.addedDate,
+      this.isConfirmed,
+      this.carTypeId,
+      this.carType,
+      this.numbersOfGuest,
+      this.note});
 
-  factory Trip.fromJson(Map<String, dynamic> json) {
-    return Trip(
-      id: json['Id'],
-      locationFromId: json['LocationFromId'],
-      locationFrom: Locationtrip.fromJson(json['LocationFrom']),
-      locationToId: json['LocationToId'],
-      locationTo: Locationtrip.fromJson(json['LocationTo']),
-      guestId: json['GuestId'],
-      guest: json['Guest'],
-      driverId: json['DriverId'],
-      driver: Driver.fromJson(json['Driver']),
-      carId: json['CarId'],
-      car: Car.fromJson(json['Car']),
-      flightNumber: json['FlightNumber'],
-      arrivalDateTime: DateTime.parse(json['ArrivalDateTime']),
-      arrivalDateTimeFormat: json['ArrivalDateTimeFormat'],
-      terminal: json['Terminal'],
-      coordinatorPhoneNumber: json['CoordinatorPhonNumber'],
-      currentTransactionStatus: json['CurrentTransactionStatus'],
-      transactionStatusName: json['TransactionStatusName'],
-      addedDate: json['AddedDate'],
-      isConfirmed: json['IsConfirmed'],
-      carTypeId: json['CarTypeId'],
-      carType: json['CarType'],
-      numbersOfGuest: json['NumbersOfGuest'],
-      note: json['Note'],
-    );
+  Trip.fromJson(Map<String, dynamic> json) {
+    
+    id = json['Id'];
+    locationFromId = json['LocationFromId'];
+    locationFrom = json['LocationFrom'] != null
+        ? new LocationFrom.fromJson(json['LocationFrom'])
+        : null;
+    companyId = json['CompanyId'];
+    company = json['Company'];
+    locationToId = json['LocationToId'];
+    locationTo = json['LocationTo'] != null
+        ? new LocationFrom.fromJson(json['LocationTo'])
+        : null;
+    guestId = json['GuestId'];
+    guest = json['Guest'];
+    driverId = json['DriverId'];
+    driver = json['Driver'] != null
+        ? new LocationFrom.fromJson(json['Driver'])
+        : null;
+    carId = json['CarId'];
+    car = json['Car'];
+    flightNumber = json['FlightNumber'];
+    arrivalDateTime = json['ArrivalDateTime'];
+    arrivalDateTimeFormat = json['ArrivalDateTimeFormat'];
+    terminal = json['Terminal'];
+    coordinatorPhonNumber = json['CoordinatorPhonNumber'];
+    currentTransactionStatus = json['CurrentTransactionStatus'];
+    transactionStatusName = json['TransactionStatusName'];
+    addedDate = json['AddedDate'];
+    isConfirmed = json['IsConfirmed'];
+    carTypeId = json['CarTypeId'];
+    carType = json['CarType'];
+    numbersOfGuest = json['NumbersOfGuest'];
+    note = json['Note'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['Id'] = this.id;
+    data['LocationFromId'] = this.locationFromId;
+    if (this.locationFrom != null) {
+      data['LocationFrom'] = this.locationFrom!.toJson();
+    }
+    data['CompanyId'] = this.companyId;
+    data['Company'] = this.company;
+    data['LocationToId'] = this.locationToId;
+    if (this.locationTo != null) {
+      data['LocationTo'] = this.locationTo!.toJson();
+    }
+    data['GuestId'] = this.guestId;
+    data['Guest'] = this.guest;
+    data['DriverId'] = this.driverId;
+    if (this.driver != null) {
+      data['Driver'] = this.driver!.toJson();
+    }
+    data['CarId'] = this.carId;
+    data['Car'] = this.car;
+    data['FlightNumber'] = this.flightNumber;
+    data['ArrivalDateTime'] = this.arrivalDateTime;
+    data['ArrivalDateTimeFormat'] = this.arrivalDateTimeFormat;
+    data['Terminal'] = this.terminal;
+    data['CoordinatorPhonNumber'] = this.coordinatorPhonNumber;
+    data['CurrentTransactionStatus'] = this.currentTransactionStatus;
+    data['TransactionStatusName'] = this.transactionStatusName;
+    data['AddedDate'] = this.addedDate;
+    data['IsConfirmed'] = this.isConfirmed;
+    data['CarTypeId'] = this.carTypeId;
+    data['CarType'] = this.carType;
+    data['NumbersOfGuest'] = this.numbersOfGuest;
+    data['Note'] = this.note;
+    return data;
   }
 }
 
-class Locationtrip {
-  final int id;
-  final String? name;
+class LocationFrom {
+  int? id;
+  String? name;
 
-  Locationtrip({
-    required this.id,
-    required this.name,
-  });
+  LocationFrom({this.id, this.name});
 
-  factory Locationtrip.fromJson(Map<String, dynamic> json) {
-    return Locationtrip(
-      id: json['Id'],
-      name: json['Name'],
-    );
+  LocationFrom.fromJson(Map<String, dynamic> json) {
+    id = json['Id'];
+    name = json['Name'];
   }
-}
 
-class Driver {
-  final int id;
-  final String? name;
-
-  Driver({
-    required this.id,
-    required this.name,
-  });
-
-  factory Driver.fromJson(Map<String, dynamic> json) {
-    return Driver(
-      id: json['Id'],
-      name: json['Name'],
-    );
-  }
-}
-
-class Car {
-  final int id;
-  final String? name;
-
-  Car({
-    required this.id,
-    required this.name,
-  });
-
-  factory Car.fromJson(Map<String, dynamic> json) {
-    return Car(
-      id: json['Id'],
-      name: json['Name'],
-    );
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['Id'] = this.id;
+    data['Name'] = this.name;
+    return data;
   }
 }

@@ -21,7 +21,7 @@ class TaskCompletedItemWidget extends StatelessWidget {
       onTap: () {
         //HomeCubit.get(context).getcurrentLocation();
         context.push(TaskDetailsScreen(
-          tripipid: tripmodel.id,
+          tripipid: tripmodel.id ?? 9,
         ));
       },
       child: Padding(
@@ -87,7 +87,7 @@ class TaskCompletedItemWidget extends StatelessWidget {
                                   width: 5,
                                 ),
                                 CustomText(
-                                  text: tripmodel.locationFrom.name ?? '',
+                                  text: tripmodel.locationFrom!.name ?? '',
                                   fontSize: 13,
                                 ),
                               ],
@@ -107,7 +107,7 @@ class TaskCompletedItemWidget extends StatelessWidget {
                                     width: 5,
                                   ),
                                   CustomText(
-                                    text: tripmodel.locationTo.name ?? '',
+                                    text: tripmodel.locationTo!.name ?? '',
                                     fontSize: 13,
                                   ),
                                 ],

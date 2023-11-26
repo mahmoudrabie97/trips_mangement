@@ -63,13 +63,15 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //print('pppppppppppppppppp ${widget.tripipid}');
     print(
         'locccccccccccccc${HomeCubit.get(context).newLatlng.latitude.toString()} ');
     print(
         'locccccccccccccc${HomeCubit.get(context).newLatlng.longitude.toString()} ');
-
+    print('herrrrrrrrrrrrrrrrrrrrrrrr');
     HomeCubit.get(context)
         .getTripsDetails(context: context, id: widget.tripipid);
+
     HomeCubit.get(context).getcurrentLocation();
     return Scaffold(
       appBar: detailspageappbar(

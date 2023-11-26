@@ -16,13 +16,13 @@ class CustomerDetails extends StatelessWidget {
       //mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
+        const Padding(
+          padding: EdgeInsets.only(left: 20, right: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                children: const [
+                children: [
                   Icon(Icons.location_on, color: Colors.amber),
                   SizedBox(
                     width: 5,
@@ -34,7 +34,7 @@ class CustomerDetails extends StatelessWidget {
                 ],
               ),
               Row(
-                children: const [
+                children: [
                   Icon(Icons.watch_later_outlined, color: Colors.amber),
                   SizedBox(
                     width: 5,
@@ -46,7 +46,7 @@ class CustomerDetails extends StatelessWidget {
                 ],
               ),
               Row(
-                children: const [
+                children: [
                   Icon(
                     Icons.monetization_on_rounded,
                     color: AppColor.mainColor,
@@ -66,8 +66,8 @@ class CustomerDetails extends StatelessWidget {
         const SizedBox(
           height: 15,
         ),
-        Padding(
-          padding: const EdgeInsets.all(20),
+        const Padding(
+          padding: EdgeInsets.all(20),
           child: Row(
             children: [
               Icon(Icons.person, color: Colors.amber),
@@ -81,13 +81,13 @@ class CustomerDetails extends StatelessWidget {
             height: 120,
             child: ListView.separated(
                 separatorBuilder: (context, index) {
-                  return SizedBox(
+                  return const SizedBox(
                     width: 15,
                   );
                 },
                 scrollDirection: Axis.horizontal,
                 itemCount:
-                    HomeCubit.get(context).ride!.transactionDetails.length,
+                    HomeCubit.get(context).ride!.transactionDetails!.length,
                 itemBuilder: (context, index) {
                   return customersname(context, index);
                 }),
@@ -112,10 +112,10 @@ class CustomerDetails extends StatelessWidget {
         CustomText(
           text: State is GetTripsdetailsLoadingState
               ? '........'
-              : ' ${HomeCubit.get(context).ride!.transactionDetails[i].guest.name}',
+              : ' ${HomeCubit.get(context).ride!.transactionDetails![i].guest!.name}',
           fontSize: 14,
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         CircleAvatar(
@@ -128,18 +128,18 @@ class CustomerDetails extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   shape: BoxShape.rectangle,
-                  image: DecorationImage(
+                  image: const DecorationImage(
                       image: NetworkImage(
                           'https://www.befunky.com/images/prismic/5ddfea42-7377-4bef-9ac4-f3bd407d52ab_landing-photo-to-cartoon-img5.jpeg?auto=avif,webp&format=jpg&width=863'),
                       fit: BoxFit.cover),
                 ))),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         CustomText(
           text: State is GetTripsdetailsLoadingState
               ? '........'
-              : ' ${HomeCubit.get(context).ride!.transactionDetails[i].arrivalDateTime}',
+              : ' ${HomeCubit.get(context).ride!.transactionDetails![i].arrivalDateTime}',
           fontSize: 8,
         ),
       ],

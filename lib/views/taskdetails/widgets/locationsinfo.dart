@@ -27,7 +27,8 @@ class LocationsInfo extends StatelessWidget {
                 children: [
                   CustomText(text: 'From :'),
                   CustomText(
-                      text: HomeCubit.get(context).ride!.locationFrom.name,
+                      text:
+                          HomeCubit.get(context).ride!.locationFrom!.name ?? '',
                       color: Colors.grey,
                       fontSize: 13),
                 ],
@@ -51,7 +52,7 @@ class LocationsInfo extends StatelessWidget {
                 children: [
                   CustomText(text: 'To :'),
                   CustomText(
-                      text: HomeCubit.get(context).ride!.locationTo.name,
+                      text: HomeCubit.get(context).ride!.locationTo!.name ?? '',
                       color: Colors.grey,
                       fontSize: 13),
                 ],

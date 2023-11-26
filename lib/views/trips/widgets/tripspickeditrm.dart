@@ -18,10 +18,11 @@ class TaskPickedItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('iiiiiiiiiiiiiiiiiii${tripmodel.id}');
     return GestureDetector(
       onTap: () {
         context.push(TaskDetailsScreen(
-          tripipid: tripmodel.id,
+          tripipid: tripmodel.id ?? 0,
         ));
       },
       child: Padding(
@@ -59,7 +60,7 @@ class TaskPickedItemWidget extends StatelessWidget {
                       ),
                       const Spacer(),
                       CustomText(
-                        text: tripmodel.arrivalDateTime.toIso8601String(),
+                        text: tripmodel.arrivalDateTime!,
                         fontSize: 11,
                         color: Colors.grey,
                       ),
@@ -87,7 +88,7 @@ class TaskPickedItemWidget extends StatelessWidget {
                                   width: 5,
                                 ),
                                 CustomText(
-                                  text: tripmodel.locationFrom.name ?? '',
+                                  text: tripmodel.locationFrom!.name ?? '',
                                   fontSize: 13,
                                 ),
                               ],
@@ -107,7 +108,7 @@ class TaskPickedItemWidget extends StatelessWidget {
                                     width: 5,
                                   ),
                                   CustomText(
-                                    text: tripmodel.locationTo.name ?? '',
+                                    text: tripmodel.locationTo!.name ?? '',
                                     fontSize: 13,
                                   ),
                                 ],

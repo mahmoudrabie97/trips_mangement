@@ -77,7 +77,7 @@ class HomeCubit extends Cubit<HomeStates> {
         emit(GetTripsForCurrentUserSucessState());
       }
     }).catchError((error) {
-      print('error $error');
+      print('erroryyyy $error');
       emit(GetTripsForCurrentUserErrorState());
     });
   }
@@ -158,7 +158,7 @@ class HomeCubit extends Cubit<HomeStates> {
         final responseBody = json.decode(value.body);
         print(responseBody);
         ride = Transaction.fromJson(responseBody);
-        print("ttttt$ride");
+        print("hhhhhhhhhhhhhhhhhhhhh$ride");
 
         emit(GetTripsdetailsSucessState());
       }
@@ -233,7 +233,9 @@ class HomeCubit extends Cubit<HomeStates> {
         subscription!.cancel();
       }
       subscription = livelocation.onLocationChanged.listen((locationData) {
-        newLatlng = LatLng(locationData.latitude, locationData.longitude);
+        // عملت تعديل هنا ??0 ??8
+        newLatlng =
+            LatLng(locationData.latitude ?? 0, locationData.longitude ?? 8);
         AppConstant.googleMapController!.animateCamera(
           CameraUpdate.newCameraPosition(
             CameraPosition(target: newLatlng, zoom: 18),
@@ -250,7 +252,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
   updateLocation(Uint8List imageData, LocationData location) {
     //المفروض الmarker اقوله انقل مكانه من هنا لهنا المكان الجديد يعني
-    LatLng latLng = LatLng(location.latitude, location.longitude);
+    LatLng latLng = LatLng(location.latitude ?? 0, location.longitude ?? 0);
     origin = Marker(
       markerId: const MarkerId('driver'),
       position: latLng,
@@ -259,12 +261,12 @@ class HomeCubit extends Cubit<HomeStates> {
       flat: true,
       draggable: false,
       zIndex: 2,
-      rotation: location.heading,
+      rotation: location.heading ?? 0,
     );
     circle = Circle(
         circleId: const CircleId('car'),
         center: latLng,
-        radius: location.accuracy,
+        radius: location.accuracy ?? 0,
         strokeColor: Colors.amber,
         zIndex: 1,
         fillColor: Colors.amber.withAlpha(60));
@@ -280,40 +282,57 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(FilterTripsByDateLoadingState());
     getfilterTripsForPickedUpList = [];
 
-    getfilterTripsForPickedUpList = getPickedUpTransactionslist
-        .where((trip) =>
-            trip.arrivalDateTime.year == selecteddate!.year &&
-            trip.arrivalDateTime.month == selecteddate!.month &&
-            trip.arrivalDateTime.day == selecteddate!.day)
-        .toList();
+    getfilterTripsForPickedUpList = getPickedUpTransactionslist.where((trip) {
+      final tripDateTime = DateTime.parse(trip.arrivalDateTime!);
+      return tripDateTime.year == selecteddate!.year &&
+          tripDateTime.month == selecteddate!.month &&
+          tripDateTime.day == selecteddate!.day;
+    }).toList();
     emit(FilterTripsByDateSuccessState());
-  }
-
-  void filterCompletedTripsByDate(BuildContext context) {
-    emit(FilterCompletedTripsByDateLoadingState());
-    getfiltercomplertedTransactionslist = [];
-
-    getfiltercomplertedTransactionslist = getPickedUpTransactionslist
-        .where((trip) =>
-            trip.arrivalDateTime.year == selecteddate!.year &&
-            trip.arrivalDateTime.month == selecteddate!.month &&
-            trip.arrivalDateTime.day == selecteddate!.day)
-        .toList();
-    emit(FilterCompletedTripsByDateSuccessState());
   }
 
   void filterHomeTripsByDate(BuildContext context) {
     emit(FilterHomeTripsByDateLoadingState());
     getfilterTripsForHomeList = [];
 
-    getfilterTripsForHomeList = getTripsForCurrentUserList
-        .where((trip) =>
-            trip.arrivalDateTime.year == selecteddate!.year &&
-            trip.arrivalDateTime.month == selecteddate!.month &&
-            trip.arrivalDateTime.day == selecteddate!.day)
-        .toList();
+    getfilterTripsForHomeList = getTripsForCurrentUserList.where((trip) {
+      final tripDateTime = DateTime.parse(trip.arrivalDateTime!);
+
+      return tripDateTime.year == selecteddate!.year &&
+          tripDateTime.month == selecteddate!.month &&
+          tripDateTime.day == selecteddate!.day;
+    }).toList();
+
     emit(FilterHomeTripsByDateSuccessState());
   }
+
+  void filterCompletedTripsByDate(BuildContext context) {
+    emit(FilterCompletedTripsByDateLoadingState());
+    getfiltercomplertedTransactionslist = [];
+
+    getfiltercomplertedTransactionslist =
+        getPickedUpTransactionslist.where((trip) {
+      final tripDateTime = DateTime.parse(trip.arrivalDateTime!);
+
+      return tripDateTime.year == selecteddate!.year &&
+          tripDateTime.month == selecteddate!.month &&
+          tripDateTime.day == selecteddate!.day;
+    }).toList();
+    emit(FilterCompletedTripsByDateSuccessState());
+  }
+
+  // void filterHomeTripsByDate(BuildContext context) {
+  //   emit(FilterHomeTripsByDateLoadingState());
+  //   getfilterTripsForHomeList = [];
+
+  //   getfilterTripsForHomeList = getTripsForCurrentUserList
+  //       .where((trip) =>
+  //          return trip.arrivalDateTime!.year == selecteddate!.year &&
+  //           trip.arrivalDateTime!.month == selecteddate!.month &&
+  //           trip.arrivalDateTime!.day == selecteddate!.day)
+  //       .toList();
+  //   emit(FilterHomeTripsByDateSuccessState());
+  // }
 
   void startTimer(
       {required BuildContext context, required int id, required int? status}) {
