@@ -202,9 +202,12 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                                     "IsDeleted": 'false'
                                   };
                                   HomeCubit.get(context).changetripStatus(
-                                      stt: true, data: data, context: context);
-                                  HomeCubit.get(context).getTripsDetails(
-                                      context: context, id: widget.tripipid);
+                                      stt: true,
+                                      data: data,
+                                      context: context,
+                                      id: widget.tripipid);
+                                  //  HomeCubit.get(context).getTripsDetails(
+                                  //  context: context, id: widget.tripipid);
                                 },
                                 buttonColor: AppColor.mainColor,
                                 txtColor: Colors.black,
@@ -239,10 +242,11 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                                       HomeCubit.get(context).changetripStatus(
                                           stt: true,
                                           data: data,
-                                          context: context);
-                                      HomeCubit.get(context).getTripsDetails(
                                           context: context,
                                           id: widget.tripipid);
+                                      // HomeCubit.get(context).getTripsDetails(
+                                      //   context: context,
+                                      // id: widget.tripipid);
                                     },
                                     buttonColor: Colors.green,
                                     txtColor: Colors.black,
@@ -277,10 +281,11 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                                       HomeCubit.get(context).changetripStatus(
                                           stt: true,
                                           data: data,
-                                          context: context);
-                                      HomeCubit.get(context).getTripsDetails(
                                           context: context,
                                           id: widget.tripipid);
+                                      //HomeCubit.get(context).getTripsDetails(
+                                      // context: context,
+                                      // id: widget.tripipid);
                                     },
                                     buttonColor: Colors.green,
                                     txtColor: Colors.black,

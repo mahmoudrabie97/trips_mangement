@@ -173,8 +173,34 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(ChangestState());
   }
 
+  Future changeingtripStatus(
+      {required Map data, required BuildContext context}) {
+    Map<String, String> headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer ${AppConstant.token}'
+    };
+    emit(ChangeTripStatusLoadingState());
+    return CallApi.postData(
+      data: data,
+      baseUrl: baseurl,
+      apiUrl: changeTripStatusurl,
+      headers: headers,
+      context: context,
+      st: false,
+    ).then((value) {
+      if (value!.statusCode == 200) {
+        print(value.body);
+      }
+    }).catchError((error) {
+      print(error);
+    });
+  }
+
   Future changetripStatus(
-      {required Map data, required BuildContext context, required bool stt}) {
+      {required Map data,
+      required BuildContext context,
+      required bool stt,
+      required int id}) {
     Map<String, String> headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': 'Bearer ${AppConstant.token}'
@@ -205,6 +231,7 @@ class HomeCubit extends Cubit<HomeStates> {
           ShowMyDialog.showMsg(context, responseBody['Message'], 'message');
         }
       }
+      getTripsDetails(context: context, id: id);
       emit(ChangeTripStatusSucessState());
     }).catchError((error) {
       print('ggggggggggggggg$error');
@@ -350,6 +377,7 @@ class HomeCubit extends Cubit<HomeStates> {
         "IsDeleted": 'false'
       };
       changetripStatus(
+        id: id,
         stt: false,
         data: data,
         context: context,
@@ -361,4 +389,25 @@ class HomeCubit extends Cubit<HomeStates> {
   void stopTimer() {
     timer?.cancel();
   }
+  //  String getchckedstatus({required ShiftDetails? shiftModel}) {
+  //   if (shiftModel!.isCheckedIn == true && shiftModel.isCheckedOut == false) {
+  //     // updateButtonText(buttonText: 'Check_out');
+
+  //     return 'Check_out ';
+  //   } else if (shiftModel.isCheckedIn == true &&
+  //       shiftModel.isCheckedIn == true) {
+  //     // updateButtonText(buttonText: 'Check_in ');
+  //     return 'Done';
+  //   } else if (shiftModel.isCheckedIn == false &&
+  //       shiftModel.isCheckedOut == false) {
+  //     // updateButtonText(buttonText: 'check_in');
+  //     return 'check_in';
+  //   } else if (shiftModel.isCheckedIn == false &&
+  //       shiftModel.isCheckedOut == true) {
+  //     // updateButtonText(buttonText: 'checked_in');
+  //     return 'checked_in';
+  //   } else {
+  //     return '';
+  //   }
+  // }
 }
