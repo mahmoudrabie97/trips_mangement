@@ -15,8 +15,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class TaskDetailsScreen extends StatefulWidget {
-  const TaskDetailsScreen({Key? key, required this.tripipid}) : super(key: key);
+  const TaskDetailsScreen(
+      {Key? key, required this.tripipid, required this.currentstatus})
+      : super(key: key);
   final int tripipid;
+  final int currentstatus;
 
   @override
   State<TaskDetailsScreen> createState() => _TaskDetailsScreenState();
@@ -69,8 +72,8 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
     print(
         'locccccccccccccc${HomeCubit.get(context).newLatlng.longitude.toString()} ');
     print('herrrrrrrrrrrrrrrrrrrrrrrr');
-    HomeCubit.get(context)
-        .getTripsDetails(context: context, id: widget.tripipid);
+    HomeCubit.get(context).getTripsDetails(
+        context: context, id: widget.tripipid, currentst: widget.currentstatus);
 
     HomeCubit.get(context).getcurrentLocation();
     return Scaffold(
@@ -180,9 +183,11 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                                   status = 2;
 
                                   HomeCubit.get(context).startTimer(
-                                      context: context,
-                                      id: widget.tripipid,
-                                      status: status);
+                                    context: context,
+                                    id: widget.tripipid,
+                                    status: status,
+                                    currentst: widget.currentstatus,
+                                  );
 
                                   HomeCubit.get(context)
                                       .changemessgestatus(true);
@@ -202,6 +207,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                                     "IsDeleted": 'false'
                                   };
                                   HomeCubit.get(context).changetripStatus(
+                                      currst: widget.currentstatus,
                                       stt: true,
                                       data: data,
                                       context: context,
@@ -240,6 +246,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                                         "IsDeleted": 'false'
                                       };
                                       HomeCubit.get(context).changetripStatus(
+                                          currst: widget.currentstatus,
                                           stt: true,
                                           data: data,
                                           context: context,
@@ -279,6 +286,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                                         "IsDeleted": 'false'
                                       };
                                       HomeCubit.get(context).changetripStatus(
+                                          currst: widget.currentstatus,
                                           stt: true,
                                           data: data,
                                           context: context,
@@ -295,6 +303,12 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                       const SizedBox(
                         height: 40,
                       ),
+                      // CustomButton(
+                      //   buttonText: HomeCubit.get(context).getchckedstatus(
+                      //       currentstatus: widget.currentstatus),
+                      //   onPressed: () {},
+                      //   buttonColor: Colors.green,
+                      // )
                     ],
                   ),
                 ),

@@ -1,4 +1,3 @@
-import 'package:drive_app/cubit/homecubit/homecubit.dart';
 import 'package:drive_app/utilites/appcolors.dart';
 import 'package:drive_app/utilites/extentionhelper.dart';
 import 'package:drive_app/utilites/widgets/customtext.dart';
@@ -24,6 +23,7 @@ class TaskItemWidget extends StatelessWidget {
       onTap: () {
         context.push(TaskDetailsScreen(
           tripipid: tripmodel.id ?? 0,
+          currentstatus: tripmodel.currentTransactionStatus ?? 0,
         ));
       },
       child: Padding(
@@ -83,9 +83,9 @@ class TaskItemWidget extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 0),
                             child: Row(
                               children: [
-                                Icon(Icons.remove_red_eye,
+                                const Icon(Icons.remove_red_eye,
                                     color: AppColor.mainColor),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 CustomText(
@@ -103,9 +103,9 @@ class TaskItemWidget extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 0),
                               child: Row(
                                 children: [
-                                  Icon(IconlyLight.location,
+                                  const Icon(IconlyLight.location,
                                       color: AppColor.mainColor),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   CustomText(
@@ -118,13 +118,13 @@ class TaskItemWidget extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Padding(
                         padding: const EdgeInsets.all(20),
                         child: Row(
                           children: [
-                            Icon(Icons.person, color: Colors.amber),
-                            SizedBox(
+                            const Icon(Icons.person, color: Colors.amber),
+                            const SizedBox(
                               width: 5,
                             ),
                             Text(tripmodel.numbersOfGuest.toString()),

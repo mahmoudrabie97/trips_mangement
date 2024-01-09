@@ -23,6 +23,7 @@ class HomeCubit extends Cubit<HomeStates> {
   DateTime? selecteddate;
   bool IshShowMessage = false;
   Timer? timer;
+  bool iscleared = false;
 
   Completer<GoogleMapController> mapController = Completer();
 
@@ -50,6 +51,11 @@ class HomeCubit extends Cubit<HomeStates> {
         zIndex: 1,
         fillColor: Colors.amber.withAlpha(60));
     newLatlng = const LatLng(28.1078099, 30.749215);
+  }
+  void clearFilter() {
+    selecteddate = null;
+    iscleared = true;
+    emit(ClearFilter());
   }
 
   Future getTripsForCurrentUser({required BuildContext context}) {
@@ -140,7 +146,10 @@ class HomeCubit extends Cubit<HomeStates> {
     });
   }
 
-  Future getTripsDetails({required BuildContext context, required int id}) {
+  Future getTripsDetails(
+      {required BuildContext context,
+      required int id,
+      required int currentst}) {
     emit(GetTripsdetailsLoadingState());
 
     Map<String, String> headers = {
@@ -154,6 +163,7 @@ class HomeCubit extends Cubit<HomeStates> {
       headers: headers,
     ).then((value) {
       if (value!.statusCode == 200) {
+        getchckedstatus(currentstatus: currentst);
         debugPrint('vvvvvvvvvvvvvvvvvvvvvvv ${value.body}');
         final responseBody = json.decode(value.body);
         print(responseBody);
@@ -174,7 +184,10 @@ class HomeCubit extends Cubit<HomeStates> {
   }
 
   Future changeingtripStatus(
-      {required Map data, required BuildContext context}) {
+      {required Map data,
+      required BuildContext context,
+      required int id,
+      required int currst}) {
     Map<String, String> headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': 'Bearer ${AppConstant.token}'
@@ -189,6 +202,9 @@ class HomeCubit extends Cubit<HomeStates> {
       st: false,
     ).then((value) {
       if (value!.statusCode == 200) {
+        getchckedstatus(currentstatus: currst);
+        getTripsDetails(context: context, id: id, currentst: currst);
+
         print(value.body);
       }
     }).catchError((error) {
@@ -200,7 +216,8 @@ class HomeCubit extends Cubit<HomeStates> {
       {required Map data,
       required BuildContext context,
       required bool stt,
-      required int id}) {
+      required int id,
+      required int currst}) {
     Map<String, String> headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': 'Bearer ${AppConstant.token}'
@@ -231,7 +248,7 @@ class HomeCubit extends Cubit<HomeStates> {
           ShowMyDialog.showMsg(context, responseBody['Message'], 'message');
         }
       }
-      getTripsDetails(context: context, id: id);
+      getTripsDetails(context: context, id: id, currentst: currst);
       emit(ChangeTripStatusSucessState());
     }).catchError((error) {
       print('ggggggggggggggg$error');
@@ -362,7 +379,10 @@ class HomeCubit extends Cubit<HomeStates> {
   // }
 
   void startTimer(
-      {required BuildContext context, required int id, required int? status}) {
+      {required BuildContext context,
+      required int id,
+      required int? status,
+      required int currentst}) {
     const duration = Duration(seconds: 20);
 
     timer = Timer.periodic(duration, (Timer t) {
@@ -381,8 +401,9 @@ class HomeCubit extends Cubit<HomeStates> {
         stt: false,
         data: data,
         context: context,
+        currst: currentst,
       );
-      getTripsDetails(context: context, id: id);
+      getTripsDetails(context: context, id: id, currentst: currentst);
     });
   }
 
@@ -390,6 +411,38 @@ class HomeCubit extends Cubit<HomeStates> {
     timer?.cancel();
   }
   //  String getchckedstatus({required ShiftDetails? shiftModel}) {
+  //   if (shiftModel!.isCheckedIn == true && shiftModel.isCheckedOut == false) {
+  //     // updateButtonText(buttonText: 'Check_out');
+
+  //     return 'Check_out ';
+  //   } else if (shiftModel.isCheckedIn == true &&
+  //       shiftModel.isCheckedIn == true) {
+  //     // updateButtonText(buttonText: 'Check_in ');
+  //     return 'Done';
+  //   } else if (shiftModel.isCheckedIn == false &&
+  //       shiftModel.isCheckedOut == false) {
+  //     // updateButtonText(buttonText: 'check_in');
+  //     return 'check_in';
+  //   } else if (shiftModel.isCheckedIn == false &&
+  //       shiftModel.isCheckedOut == true) {
+  //     // updateButtonText(buttonText: 'checked_in');
+  //     return 'checked_in';
+  //   } else {
+  //     return '';
+  //   }
+  // }
+
+  String getchckedstatus({required int? currentstatus}) {
+    if (currentstatus == 1) {
+      return 'Pick Up';
+    } else if (currentstatus == 2) {
+      return 'done';
+    } else if (currentstatus == 3) {
+      return 'reset car';
+    } else {
+      return 'Completed';
+    }
+  }
   //   if (shiftModel!.isCheckedIn == true && shiftModel.isCheckedOut == false) {
   //     // updateButtonText(buttonText: 'Check_out');
 

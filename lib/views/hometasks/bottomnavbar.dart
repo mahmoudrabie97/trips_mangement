@@ -1,3 +1,4 @@
+import 'package:drive_app/cubit/homecubit/homecubit.dart';
 import 'package:drive_app/utilites/appcolors.dart';
 import 'package:drive_app/views/explore/exploresceen.dart';
 import 'package:drive_app/views/hightnits/hightnits.dart';
@@ -41,15 +42,21 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
       onTap: (value) {
         setState(() {
           currentindex = value;
+          if (currentindex == 2) {}
         });
       },
       items: const [
         BottomNavigationBarItem(icon: Icon(IconlyLight.home), label: 'Home '),
         BottomNavigationBarItem(
             icon: Icon(IconlyLight.bookmark), label: 'Picked up '),
-        BottomNavigationBarItem(icon: Icon(Icons.task), label: 'completed'),
         BottomNavigationBarItem(
-            icon: Icon(IconlyLight.chart), label: 'Hightnits'),
+          icon: Icon(Icons.task),
+          label: 'completed',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(IconlyLight.chart),
+          label: 'Hightnits',
+        ),
         BottomNavigationBarItem(
             icon: Icon(IconlyLight.profile), label: 'Profile'),
       ],

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 
 class HomeTasksScreen extends StatelessWidget {
   const HomeTasksScreen({Key? key}) : super(key: key);
@@ -53,7 +54,45 @@ class HomeTasksScreen extends StatelessWidget {
                     color: Colors.grey,
                   ),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 10),
+               if (HomeCubit.get(context).selecteddate != null)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              'clear',
+                              style: TextStyle(color: Colors.orange),
+                            ),
+                            CircleAvatar(
+                              child: IconButton(
+                                  onPressed: () {
+                                    HomeCubit.get(context).clearFilter();
+                                    debugPrint(
+                                        "Selected date: ${HomeCubit.get(context).selecteddate}");
+                                  },
+                                  icon: Icon(Icons.close)),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          DateFormat.yMMMMd('en_US').format(
+                              HomeCubit.get(context).selecteddate ??
+                                  DateTime.now()),
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                SizedBox(
+                  height: 10,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(right: 20, left: 20),
                   child: CustomTextFormField(

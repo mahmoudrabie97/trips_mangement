@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 
 class TripsScreen extends StatelessWidget {
   const TripsScreen({Key? key}) : super(key: key);
@@ -55,7 +56,45 @@ class TripsScreen extends StatelessWidget {
                     color: Colors.grey,
                   ),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 10),
+                if (HomeCubit.get(context).selecteddate != null)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Column(
+                          children: [
+                            const Text(
+                              'clear',
+                              style: TextStyle(color: Colors.orange),
+                            ),
+                            CircleAvatar(
+                              child: IconButton(
+                                  onPressed: () {
+                                    HomeCubit.get(context).clearFilter();
+                                    debugPrint(
+                                        "Selected date: ${HomeCubit.get(context).selecteddate}");
+                                  },
+                                  icon: const Icon(Icons.close)),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          DateFormat.yMMMMd('en_US').format(
+                              HomeCubit.get(context).selecteddate ??
+                                  DateTime.now()),
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                const SizedBox(
+                  height: 10,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(right: 20, left: 20),
                   child: CustomTextFormField(
@@ -88,7 +127,7 @@ class TripsScreen extends StatelessWidget {
                       )
                     : SizedBox(
                         child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: HomeCubit.get(context).selecteddate == null
                               ? HomeCubit.get(context)

@@ -59,3 +59,7 @@ class FilterHomeTripsByDateLoadingState extends HomeStates {}
 class ChangestState extends HomeStates {}
 
 class TimerState extends HomeStates {}
+
+class ClearFilter extends HomeStates {}
+
+class Changest extends HomeStates {}

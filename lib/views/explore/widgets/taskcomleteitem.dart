@@ -22,6 +22,7 @@ class TaskCompletedItemWidget extends StatelessWidget {
         //HomeCubit.get(context).getcurrentLocation();
         context.push(TaskDetailsScreen(
           tripipid: tripmodel.id ?? 9,
+          currentstatus: tripmodel.currentTransactionStatus ?? 0,
         ));
       },
       child: Padding(

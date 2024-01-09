@@ -1,4 +1,3 @@
-import 'package:drive_app/cubit/homecubit/homecubit.dart';
 import 'package:drive_app/utilites/appcolors.dart';
 import 'package:drive_app/utilites/extentionhelper.dart';
 import 'package:drive_app/utilites/widgets/customtext.dart';
@@ -23,6 +22,7 @@ class TaskPickedItemWidget extends StatelessWidget {
       onTap: () {
         context.push(TaskDetailsScreen(
           tripipid: tripmodel.id ?? 0,
+          currentstatus: tripmodel.currentTransactionStatus ?? 0,
         ));
       },
       child: Padding(
