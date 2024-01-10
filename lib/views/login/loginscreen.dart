@@ -1,6 +1,7 @@
 import 'package:drive_app/cubit/logincubit/logincubit.dart';
 import 'package:drive_app/cubit/logincubit/loginstates.dart';
 import 'package:drive_app/utilites/appcolors.dart';
+import 'package:drive_app/utilites/custommethods.dart';
 import 'package:drive_app/utilites/extentionhelper.dart';
 import 'package:drive_app/utilites/widgets/custombutton.dart';
 import 'package:drive_app/utilites/widgets/customtextformfield.dart';
@@ -57,10 +58,13 @@ class LoginScreen extends StatelessWidget {
                         ),
                         child: CustomTextFormField(
                           controller: _emailController,
-                          validator: (email) {
-                            if (email!.isEmpty) {
-                              return 'please enter the email';
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'please enter your email';
+                            } else if (!isEmailValid(value)) {
+                              return 'Invalid email format';
                             }
+                            return null;
                           },
                           hintText: ' Email Adress',
                           hinnntcolr: Colors.grey,
@@ -114,6 +118,9 @@ class LoginScreen extends StatelessWidget {
                                 txtColor: Colors.black,
                                 borderRadius: 18,
                               ),
+                      ),
+                      SizedBox(
+                        height: 20,
                       ),
                     ],
                   ),
