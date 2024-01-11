@@ -105,6 +105,23 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
+                       Row(
+                        children: [
+                          Checkbox(
+                            checkColor: Colors.white,
+                           activeColor: Colors.amber,
+                            value: LoginCubit.get(context).isChecked,
+                            onChanged:(value) {
+                              LoginCubit.get(context).checkBox(value);
+                            },
+
+                          ),
+                        const  Text(
+                            'Remember me ',
+                            style: TextStyle(color: Colors.grey, fontSize: 18),
+                          )
+                        ],
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: state is LoginLoadingState
@@ -131,7 +148,7 @@ class LoginScreen extends StatelessWidget {
                                 borderRadius: 18,
                               ),
                       ),
-                      SizedBox(
+                      const    SizedBox(
                         height: 20,
                       ),
                     ],

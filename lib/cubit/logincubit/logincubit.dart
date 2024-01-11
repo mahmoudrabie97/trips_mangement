@@ -18,6 +18,14 @@ class LoginCubit extends Cubit<LoginStates> {
   IconData sufficxicpc = Icons.visibility_off;
   bool isSecurep = true;
   bool isSecurepc = true;
+  bool  isChecked = false;
+
+
+  void Function(bool?)? checkBox (bool? val) {
+
+  isChecked = val!;
+  emit(CheckBoxSuccessState());
+  }
 
   void changeSecurePassword() {
     if (isSecurep) {
