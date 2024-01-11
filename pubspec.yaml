@@ -44,6 +44,7 @@ dependencies:
   bloc: ^8.1.2
   http: 
   intl:
+  shared_preferences: ^2.2.2
 
 
 dev_dependencies:

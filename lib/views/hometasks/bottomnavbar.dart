@@ -1,4 +1,3 @@
-import 'package:drive_app/cubit/homecubit/homecubit.dart';
 import 'package:drive_app/utilites/appcolors.dart';
 import 'package:drive_app/views/explore/exploresceen.dart';
 import 'package:drive_app/views/hightnits/hightnits.dart';

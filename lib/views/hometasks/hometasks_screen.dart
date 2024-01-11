@@ -36,18 +36,19 @@ class HomeTasksScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: 18),
                 DatePicker(
+                  DateTime.now(),
+                  //DateTime(2023, 7, 1),
+                  initialSelectedDate: HomeCubit.get(context).selecteddate,
+                  selectionColor: Colors.amber,
+                  selectedTextColor: Colors.white,
                   onDateChange: (d) {
                     HomeCubit.get(context).changedatePicker(d);
                     HomeCubit.get(context).filterHomeTripsByDate(context);
                     debugPrint(
                         "Selected date: ${HomeCubit.get(context).selecteddate}");
                   },
-                  DateTime.now(),
                   height: 100,
                   width: 80,
-                  initialSelectedDate: HomeCubit.get(context).selecteddate,
-                  selectionColor: Colors.amber,
-                  selectedTextColor: Colors.white,
                   dateTextStyle: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,

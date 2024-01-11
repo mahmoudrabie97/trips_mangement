@@ -1,7 +1,7 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AppConstant {
-  static String token = '';
+  static String? token = '';
 
   static String googlemapkey = 'AIzaSyAERrsuLUwaoHiO1di6tZYYMXx1TqbDmnk';
   static CameraPosition kGoogposition = const CameraPosition(

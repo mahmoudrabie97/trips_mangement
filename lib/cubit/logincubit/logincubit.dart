@@ -4,6 +4,7 @@ import 'package:drive_app/cubit/logincubit/loginstates.dart';
 import 'package:drive_app/models/user_model.dart';
 import 'package:drive_app/network/api.dart';
 import 'package:drive_app/network/endpoints.dart';
+import 'package:drive_app/network/local_network.dart';
 import 'package:drive_app/utilites/constants.dart';
 import 'package:drive_app/utilites/widgets/showdialog.dart';
 import 'package:flutter/material.dart';
@@ -18,13 +19,11 @@ class LoginCubit extends Cubit<LoginStates> {
   IconData sufficxicpc = Icons.visibility_off;
   bool isSecurep = true;
   bool isSecurepc = true;
-  bool  isChecked = false;
+  bool isChecked = false;
 
-
-  void Function(bool?)? checkBox (bool? val) {
-
-  isChecked = val!;
-  emit(CheckBoxSuccessState());
+  void checkBox(bool? val) {
+    isChecked = val!;
+    emit(CheckBoxSuccessState());
   }
 
   void changeSecurePassword() {
@@ -59,6 +58,10 @@ class LoginCubit extends Cubit<LoginStates> {
         userModel = UserModel.fromJson(responseBody);
 
         AppConstant.token = userModel!.accessToken;
+        if (isChecked) {
+          CashDate.setDate(key: 'token', value: userModel?.accessToken);
+        }
+
         print('tokkkkkkkkkkkkkkkkk${AppConstant.token}');
 
         // AppConstant.token = userModel!.accessToken;

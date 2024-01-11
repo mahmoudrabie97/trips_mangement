@@ -1,5 +1,7 @@
+import 'package:drive_app/network/local_network.dart';
 import 'package:drive_app/utilites/appcolors.dart';
 import 'package:drive_app/utilites/extentionhelper.dart';
+import 'package:drive_app/views/login/loginscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
@@ -19,7 +21,13 @@ AppBar detailspageappbar(
       onPressed: () {
         Navigator.pop(context);
       },
-      icon: const Icon(Icons.arrow_back_ios),
+      icon: IconButton(
+          onPressed: () async {
+            await CashDate.deletData(key: 'token');
+            // ignore: use_build_context_synchronously
+            context.push(LoginScreen());
+          },
+          icon: const Icon(Icons.logout)),
       color: AppColor.mainColor,
     ),
     actions: const [
