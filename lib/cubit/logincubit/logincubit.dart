@@ -14,6 +14,22 @@ class LoginCubit extends Cubit<LoginStates> {
   static LoginCubit get(context) => BlocProvider.of(context);
 
   UserModel? userModel;
+  IconData sufficxicp = Icons.visibility_off;
+  IconData sufficxicpc = Icons.visibility_off;
+  bool isSecurep = true;
+  bool isSecurepc = true;
+
+  void changeSecurePassword() {
+    if (isSecurep) {
+      sufficxicp = Icons.visibility_off;
+      isSecurep = false;
+    } else {
+      sufficxicp = Icons.remove_red_eye_outlined;
+      isSecurep = true;
+    }
+    emit(ChangesecurepasswordState());
+  }
+
   void loginUser({
     required Map userdata,
     required BuildContext context,

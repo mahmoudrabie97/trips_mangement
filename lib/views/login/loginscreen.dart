@@ -1,3 +1,4 @@
+import 'package:drive_app/cubit/homecubit/homecubit.dart';
 import 'package:drive_app/cubit/logincubit/logincubit.dart';
 import 'package:drive_app/cubit/logincubit/loginstates.dart';
 import 'package:drive_app/utilites/appcolors.dart';
@@ -14,6 +15,8 @@ class LoginScreen extends StatelessWidget {
   final _formkey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final FocusNode field1 = FocusNode();
+  final FocusNode field2 = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +71,10 @@ class LoginScreen extends StatelessWidget {
                           },
                           hintText: ' Email Adress',
                           hinnntcolr: Colors.grey,
+                          focusnode: field1,
+                          onsubmitted: (value) {
+                            FocusScope.of(context).requestFocus(field2);
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -80,14 +87,19 @@ class LoginScreen extends StatelessWidget {
                         ),
                         child: CustomTextFormField(
                           controller: _passwordController,
+                          obscureText: LoginCubit.get(context).isSecurep,
                           validator: (password) {
                             if (password!.isEmpty) {
                               return 'please enter the password';
                             }
                           },
+                          focusnode: field2,
+                          suffixicon: LoginCubit.get(context).sufficxicp,
+                          suffixpressed: () {
+                            LoginCubit.get(context).changeSecurePassword();
+                          },
                           hintText: ' Password',
                           hinnntcolr: Colors.grey,
-                          obscureText: true,
                         ),
                       ),
                       const SizedBox(

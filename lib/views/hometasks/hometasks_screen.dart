@@ -55,7 +55,7 @@ class HomeTasksScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-               if (HomeCubit.get(context).selecteddate != null)
+                if (HomeCubit.get(context).selecteddate != null)
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -96,7 +96,7 @@ class HomeTasksScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 20, left: 20),
                   child: CustomTextFormField(
-                    suffixIcon: IconlyLight.search,
+                    suffixicon: IconlyLight.search,
                     hintText: 'Search',
                     validator: (text) {
                       if (text!.isEmpty) {
