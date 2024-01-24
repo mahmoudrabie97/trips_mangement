@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (BuildContext context, state) {
           if (state is LoginSucsessState) {
-            context.push(const HomeBottomNav());
+            context.pushreremove(const HomeBottomNav());
           }
         },
         builder: (BuildContext context, Object? state) {

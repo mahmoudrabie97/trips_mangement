@@ -1,4 +1,5 @@
 import 'package:drive_app/utilites/appcolors.dart';
+import 'package:drive_app/utilites/custommethods.dart';
 import 'package:drive_app/views/explore/exploresceen.dart';
 import 'package:drive_app/views/hightnits/hightnits.dart';
 import 'package:drive_app/views/hometasks/hometasks_screen.dart';
@@ -25,10 +26,16 @@ class _HomeBottomNavState extends State<HomeBottomNav> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade100,
-      body: pages[currentindex],
-      bottomNavigationBar: buildBottomNavBar(),
+    return WillPopScope(
+      onWillPop: () async {
+        bool? shouldExit = await showExitConfirmationDialog(context: context);
+        return shouldExit ?? false;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.grey.shade100,
+        body: pages[currentindex],
+        bottomNavigationBar: buildBottomNavBar(),
+      ),
     );
   }
 

@@ -37,6 +37,7 @@ class HomeTasksScreen extends StatelessWidget {
                 const SizedBox(height: 18),
                 DatePicker(
                   DateTime.now(),
+
                   //DateTime(2023, 7, 1),
                   initialSelectedDate: HomeCubit.get(context).selecteddate,
                   selectionColor: Colors.amber,

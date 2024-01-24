@@ -20,3 +20,11 @@ extension NavigatorreplacementHelper on BuildContext {
     );
   }
 }
+
+extension NavigatorRemoveable on BuildContext {
+  void pushreremove(Widget widget) {
+    Navigator.of(this).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => widget),
+        (Route<dynamic> route) => false);
+  }
+}
