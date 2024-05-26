@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 class UserInformationWidget extends StatelessWidget {
   const UserInformationWidget({
     super.key,
+    required this.drivername,
   });
-
+  final String drivername;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -40,7 +41,7 @@ class UserInformationWidget extends StatelessWidget {
             CustomText(
               text: State is GetTripsdetailsLoadingState
                   ? '........'
-                  : HomeCubit.get(context).ride!.driver!.name ?? '',
+                  : drivername,
               fontSize: 12,
             ),
             CustomText(

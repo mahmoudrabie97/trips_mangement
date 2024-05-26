@@ -10,7 +10,7 @@ class OnBoardingScreen extends StatelessWidget {
       imageUrl: 'assets/images/onboarding1.png',
       title: 'Request Ride ',
       subTitle: 'Request a ride to pick you up by the nearest driver',
-      subTitleTextStyle: const TextStyle(fontSize: 12),
+      subTitleTextStyle: const TextStyle(fontSize: 14, color: Colors.grey),
       titleTextStyle: const TextStyle(fontSize: 24),
     ),
     Introduction(
@@ -18,7 +18,7 @@ class OnBoardingScreen extends StatelessWidget {
       title: 'Confirm Your Driver ',
       subTitle:
           'You will be delivered to your destination by professional drivers',
-      subTitleTextStyle: const TextStyle(fontSize: 12),
+      subTitleTextStyle: const TextStyle(fontSize: 14, color: Colors.grey),
       titleTextStyle: const TextStyle(fontSize: 24),
     ),
   ];

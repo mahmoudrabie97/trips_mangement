@@ -1,8 +1,12 @@
-const String baseurl = 'http://85.93.89.54:8032/';
+const String baseurl = 'http://194.163.171.239:8020/';
 const String loginurl = 'token';
-const String getTripsForCurrentUserurl = 'GetTripsForCurrentUser';
-const String getTripDetailsurl = 'GetTripDetails';
+const String getDriverTripsurl = 'GetDriverTrips';
+const String getTripDetailsurl = 'TripDetails';
 const String getPickedUpTransactionsByDriverIdUrl =
-    'GetPickedUpTransactionsByDriverId';
-const String getFinishedTransactionsUrl = 'GetFinishedTransactionsByDriverId';
-const String changeTripStatusurl = 'ChangeTripStatus';
+    'GetPickedUpTripsByDriverId';
+const String getDriverTodayShiftsUrl = 'GetDriverTodayShifts';
+const String getFinishedTransactionsUrl = 'GetFinishedTripsByDriverId';
+const String changeTripStatusurl = 'TrackTripCar';
+const String changeAttnedenceStatusUrl = 'ChangeAttnedenceStatus';
+const String createTripUrl = 'CreateTrip';
+const String getDriverInfoURl = 'GetDriverInfo';

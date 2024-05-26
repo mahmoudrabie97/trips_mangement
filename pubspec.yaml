@@ -45,6 +45,10 @@ dependencies:
   http: 
   intl:
   shared_preferences: ^2.2.2
+  lottie: 
+  liquid_pull_refresh:
+  animated_text_kit: 
+
 
 
 dev_dependencies:

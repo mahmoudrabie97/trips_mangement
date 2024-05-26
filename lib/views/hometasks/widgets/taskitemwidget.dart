@@ -1,17 +1,19 @@
+import 'package:drive_app/models/trips.dart';
 import 'package:drive_app/utilites/appcolors.dart';
 import 'package:drive_app/utilites/extentionhelper.dart';
 import 'package:drive_app/utilites/widgets/customtext.dart';
 import 'package:drive_app/views/taskdetails/taskdetails_scereen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
-import 'package:drive_app/models/trips.dart';
+import 'package:flutter/widgets.dart';
 
 class TaskItemWidget extends StatelessWidget {
   const TaskItemWidget({
-    super.key,
+    Key? key,
     required this.tripmodel,
     required this.mylist,
-  });
+  }) : super(key: key);
+
   final Trip tripmodel;
   final List mylist;
 
@@ -21,13 +23,18 @@ class TaskItemWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        context.push(TaskDetailsScreen(
-          tripipid: tripmodel.id ?? 0,
-          currentstatus: tripmodel.currentTransactionStatus ?? 0,
-        ));
+        // context.push(TaskDetailsScreen(
+        //   tripipid: tripmodel.id ?? 0,
+        //   currentstatus: tripmodel.id ?? 0,
+        //   drivername: tripmodel.driverName ?? '',
+        //   tripmodel: tripmodel,
+        // ));
       },
       child: Padding(
-        padding: const EdgeInsets.only(right: 20, left: 20),
+        padding: const EdgeInsets.only(
+          right: 20,
+          left: 20,
+        ),
         child: Container(
           margin: const EdgeInsets.only(bottom: 15),
           decoration: BoxDecoration(
@@ -39,98 +46,136 @@ class TaskItemWidget extends StatelessWidget {
           height: 170,
           child: Column(
             children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    right: 15,
-                    left: 10,
-                    top: 5,
-                  ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15),
-                        child: Text(
-                          tripmodel.note ?? '',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                  fontWeight: FontWeight.bold, fontSize: 14),
-                        ),
-                      ),
-                      const Spacer(),
-                      CustomText(
-                        text: tripmodel.arrivalDateTime!,
-                        fontSize: 11,
-                        color: Colors.grey,
-                      ),
-                    ],
-                  ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  right: 15,
+                  left: 10,
+                  top: 10,
+                  bottom: 10,
                 ),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15, top: 10),
+                      child: Text(
+                        tripmodel.carName ?? '',
+                        style:
+                            Theme.of(context).textTheme.titleMedium!.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 5,
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 10,
-                  ),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   child: Row(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 0),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.remove_red_eye,
-                                    color: AppColor.mainColor),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                CustomText(
-                                  text: tripmodel.locationFrom!.name ?? '',
-                                  fontSize: 13,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Expanded(
-                            child: Padding(
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
                               padding: const EdgeInsets.only(left: 0),
                               child: Row(
                                 children: [
-                                  const Icon(IconlyLight.location,
+                                  const Icon(Icons.person,
                                       color: AppColor.mainColor),
                                   const SizedBox(
                                     width: 5,
                                   ),
                                   CustomText(
-                                    text: tripmodel.locationTo!.name ?? '',
+                                    text: tripmodel.driverName ?? '',
                                     fontSize: 13,
                                   ),
+                                  const Spacer(),
+                                  const Icon(Icons.car_repair,
+                                      color: Colors.amber),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(tripmodel.coordinatorName.toString()),
                                 ],
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.person, color: Colors.amber),
                             const SizedBox(
-                              width: 5,
+                              height: 15,
                             ),
-                            Text(tripmodel.numbersOfGuest.toString()),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 0),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.description_outlined,
+                                      color: AppColor.mainColor),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      tripmodel.description ?? '',
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  const Icon(Icons.car_repair,
+                                      color: Colors.amber),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(tripmodel.plateNumber.toString()),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  const Spacer(),
+                                  tripmodel.tripStatus == 2
+                                      ? Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.amber,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 2, right: 2),
+                                            child: Text(
+                                              'Picked up',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        )
+                                      : Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 2, right: 2),
+                                            child: Text(
+                                              'completed',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        )
+                                ],
+                              ),
+                            )
                           ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

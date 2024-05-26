@@ -10,6 +10,34 @@ class ShowMyDialog {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
+                Text(
+                  msg,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  static Future showMsgfuture(BuildContext context, String msg, String txt) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(txt),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
                 Text(msg),
               ],
             ),

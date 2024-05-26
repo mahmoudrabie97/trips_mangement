@@ -1,4 +1,4 @@
-class Trip {
+class TripDetailsModel {
   int? id;
   String? carName;
   String? plateNumber;
@@ -7,7 +7,7 @@ class Trip {
   int? tripStatus;
   String? description;
 
-  Trip(
+  TripDetailsModel(
       {this.id,
       this.carName,
       this.plateNumber,
@@ -16,7 +16,7 @@ class Trip {
       this.tripStatus,
       this.description});
 
-  Trip.fromJson(Map<String, dynamic> json) {
+  TripDetailsModel.fromJson(Map<String, dynamic> json) {
     id = json['Id'];
     carName = json['CarName'];
     plateNumber = json['PlateNumber'];

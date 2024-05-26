@@ -2,6 +2,7 @@ import 'package:drive_app/cubit/homecubit/homecubit.dart';
 import 'package:drive_app/network/local_network.dart';
 import 'package:drive_app/simpleblocobserver.dart';
 import 'package:drive_app/utilites/constants.dart';
+import 'package:drive_app/views/creation_trip/create_trip.dart';
 import 'package:drive_app/views/hometasks/bottomnavbar.dart';
 import 'package:drive_app/views/onboarding/onboardingscreen.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => HomeCubit(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
             primarySwatch: Colors.blue,
@@ -32,9 +34,12 @@ class MyApp extends StatelessWidget {
                 focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
             ))),
-        home: AppConstant.token == null || AppConstant.token == ''
-            ? OnBoardingScreen()
-            : const HomeBottomNav(),
+        home:
+            //CreateTripPage()
+            //AttendancePage()
+            AppConstant.token == null || AppConstant.token == ''
+                ? OnBoardingScreen()
+                : const HomeBottomNav(),
       ),
     );
   }

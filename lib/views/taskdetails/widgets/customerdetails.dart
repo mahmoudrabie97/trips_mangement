@@ -1,14 +1,16 @@
 import 'package:drive_app/cubit/homecubit/homecubit.dart';
 import 'package:drive_app/cubit/homecubit/homestates.dart';
+import 'package:drive_app/models/trips.dart';
 import 'package:drive_app/utilites/appcolors.dart';
 import 'package:drive_app/utilites/widgets/customtext.dart';
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
 
 class CustomerDetails extends StatelessWidget {
   const CustomerDetails({
     super.key,
+    required this.tripmodel,
   });
+  final Trip tripmodel;
 
   @override
   Widget build(BuildContext context) {
@@ -16,19 +18,34 @@ class CustomerDetails extends StatelessWidget {
       //mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 20, right: 20),
+        Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  Icon(Icons.location_on, color: Colors.amber),
+                  const Icon(Icons.car_repair, color: Colors.amber),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  CustomText(
+                    text: tripmodel.carName.toString(),
+                    fontSize: 12,
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.car_repair,
+                    color: AppColor.mainColor,
+                  ),
                   SizedBox(
                     width: 5,
                   ),
                   CustomText(
-                    text: '5.5 Km',
+                    text: tripmodel.plateNumber.toString(),
                     fontSize: 12,
                   ),
                 ],
@@ -39,25 +56,10 @@ class CustomerDetails extends StatelessWidget {
                   SizedBox(
                     width: 5,
                   ),
-                  CustomText(
-                    text: '15 mins',
-                    fontSize: 12,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.monetization_on_rounded,
-                    color: AppColor.mainColor,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  CustomText(
-                    text: '7.00\$',
-                    fontSize: 12,
-                  ),
+                  // CustomText(
+                  //   text: tripmodel.scheduledShiftStart.toString(),
+                  //   fontSize: 12,
+                  // ),
                 ],
               ),
             ],
@@ -66,39 +68,14 @@ class CustomerDetails extends StatelessWidget {
         const SizedBox(
           height: 15,
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.all(20),
           child: Row(
             children: [
               Icon(Icons.person, color: Colors.amber),
-              Text('Customers names'),
+              Text(tripmodel.coordinatorName.toString()),
             ],
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: SizedBox(
-            height: 120,
-            child: ListView.separated(
-                separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    width: 15,
-                  );
-                },
-                scrollDirection: Axis.horizontal,
-                itemCount:
-                    HomeCubit.get(context).ride!.transactionDetails!.length,
-                itemBuilder: (context, index) {
-                  return customersname(context, index);
-                }),
-          ),
-          // child: Row(
-          //   children: [
-          //     customersname(context),
-          //     customersname(context),
-          //     customersname(context),
-          //   ],
-          // ),
         ),
       ],
     );
@@ -109,10 +86,10 @@ class CustomerDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       //mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        CustomText(
+        const CustomText(
           text: State is GetTripsdetailsLoadingState
               ? '........'
-              : ' ${HomeCubit.get(context).ride!.transactionDetails![i].guest!.name}',
+              : ' CoordinatorName',
           fontSize: 14,
         ),
         const SizedBox(
@@ -136,10 +113,10 @@ class CustomerDetails extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        CustomText(
+        const CustomText(
           text: State is GetTripsdetailsLoadingState
               ? '........'
-              : ' ${HomeCubit.get(context).ride!.transactionDetails![i].arrivalDateTime}',
+              : ' arrival time',
           fontSize: 8,
         ),
       ],

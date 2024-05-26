@@ -12,6 +12,12 @@ class GetTripsForCurrentUserSucessState extends HomeStates {}
 
 class GetTripsForCurrentUserErrorState extends HomeStates {}
 
+class GetTodayShiftsLoadingState extends HomeStates {}
+
+class GetTodayShiftsSucessState extends HomeStates {}
+
+class GetTodayShiftsErrorState extends HomeStates {}
+
 class GetPickedUpTransactionsrLoadingState extends HomeStates {}
 
 class GetPickedUpTransactionsSucessState extends HomeStates {}
@@ -63,3 +69,25 @@ class TimerState extends HomeStates {}
 class ClearFilter extends HomeStates {}
 
 class Changest extends HomeStates {}
+
+class CheckedinOutLoadingState extends HomeStates {}
+
+class CheckedInOutSucsessState extends HomeStates {}
+
+class CheckedInoutErrorState extends HomeStates {}
+
+class ShowLottileLoadingrState extends HomeStates {}
+
+class ShowLottileSucsessState extends HomeStates {}
+
+class CreateTripErrorState extends HomeStates {}
+
+class CreateTripLoadingState extends HomeStates {}
+
+class CreateTripSucsessState extends HomeStates {}
+
+class GetInfoLoadingState extends HomeStates {}
+
+class GetInfoSuccessState extends HomeStates {}
+
+class GetInfoErrorState extends HomeStates {}

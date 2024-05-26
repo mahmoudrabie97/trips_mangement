@@ -17,12 +17,15 @@ class TaskPickedItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('iiiiiiiiiiiiiiiiiii${tripmodel.id}');
+    print('listttttttt$mylist');
+
     return GestureDetector(
       onTap: () {
         context.push(TaskDetailsScreen(
           tripipid: tripmodel.id ?? 0,
-          currentstatus: tripmodel.currentTransactionStatus ?? 0,
+          currentstatus: tripmodel.id ?? 0,
+          drivername: tripmodel.driverName ?? '',
+          tripmodel: tripmodel,
         ));
       },
       child: Padding(
@@ -50,19 +53,13 @@ class TaskPickedItemWidget extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 15),
                         child: Text(
-                          tripmodel.note ?? '',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                  fontWeight: FontWeight.bold, fontSize: 14),
+                          tripmodel.carName ?? '',
+                          style:
+                              Theme.of(context).textTheme.titleMedium!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
                         ),
-                      ),
-                      const Spacer(),
-                      CustomText(
-                        text: tripmodel.arrivalDateTime!,
-                        fontSize: 11,
-                        color: Colors.grey,
                       ),
                     ],
                   ),
@@ -70,52 +67,67 @@ class TaskPickedItemWidget extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 10,
-                  ),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   child: Row(
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 0),
-                            child: Row(
-                              children: [
-                                const Icon(Icons.remove_red_eye,
-                                    color: AppColor.mainColor),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                CustomText(
-                                  text: tripmodel.locationFrom!.name ?? '',
-                                  fontSize: 13,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Expanded(
-                            child: Padding(
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
                               padding: const EdgeInsets.only(left: 0),
                               child: Row(
                                 children: [
-                                  const Icon(IconlyLight.location,
+                                  const Icon(Icons.person,
                                       color: AppColor.mainColor),
                                   const SizedBox(
                                     width: 5,
                                   ),
                                   CustomText(
-                                    text: tripmodel.locationTo!.name ?? '',
+                                    text: tripmodel.driverName ?? '',
                                     fontSize: 13,
                                   ),
+                                  const Spacer(),
+                                  const Icon(Icons.car_repair,
+                                      color: Colors.amber),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(tripmodel.coordinatorName.toString()),
                                 ],
                               ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 0),
+                              child: Row(
+                                children: [
+                                  const Icon(Icons.description_outlined,
+                                      color: AppColor.mainColor),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      tripmodel.description ?? '',
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                    ),
+                                  ),
+                                  const Spacer(),
+                                  const Icon(Icons.car_repair,
+                                      color: Colors.amber),
+                                  const SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(tripmodel.plateNumber.toString()),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

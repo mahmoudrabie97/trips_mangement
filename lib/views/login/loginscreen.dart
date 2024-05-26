@@ -1,4 +1,3 @@
-import 'package:drive_app/cubit/homecubit/homecubit.dart';
 import 'package:drive_app/cubit/logincubit/logincubit.dart';
 import 'package:drive_app/cubit/logincubit/loginstates.dart';
 import 'package:drive_app/utilites/appcolors.dart';
@@ -92,6 +91,7 @@ class LoginScreen extends StatelessWidget {
                             if (password!.isEmpty) {
                               return 'please enter the password';
                             }
+                            return null;
                           },
                           focusnode: field2,
                           suffixicon: LoginCubit.get(context).sufficxicp,

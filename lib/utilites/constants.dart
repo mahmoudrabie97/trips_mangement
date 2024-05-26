@@ -2,7 +2,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AppConstant {
   static String? token = '';
-
+  static String drivername = '';
+  static String showmessage = '';
+  static int? driverstatus;
   static String googlemapkey = 'AIzaSyAERrsuLUwaoHiO1di6tZYYMXx1TqbDmnk';
   static CameraPosition kGoogposition = const CameraPosition(
     target: LatLng(30.42796133580664, 31.085749655962),

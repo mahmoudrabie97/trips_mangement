@@ -1,3 +1,5 @@
+import 'package:drive_app/cubit/homecubit/homecubit.dart';
+import 'package:drive_app/utilites/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CashDate {
@@ -33,6 +35,8 @@ class CashDate {
   }
 
   static Future<bool>? deletData({required String key}) {
+    AppConstant.token = '';
+    AppConstant.drivername = '';
     return sharedPreferences?.remove(key);
   }
 }

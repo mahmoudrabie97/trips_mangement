@@ -1,5 +1,6 @@
 import 'package:drive_app/network/local_network.dart';
 import 'package:drive_app/utilites/appcolors.dart';
+import 'package:drive_app/utilites/constants.dart';
 import 'package:drive_app/utilites/extentionhelper.dart';
 import 'package:drive_app/views/login/loginscreen.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ AppBar detailspageappbar(
       icon: IconButton(
           onPressed: () async {
             await CashDate.deletData(key: 'token');
+
             // ignore: use_build_context_synchronously
             context.push(LoginScreen());
           },
