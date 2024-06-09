@@ -34,6 +34,9 @@ class _HomeTasksScreenState extends State<HomeTasksScreen> {
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (BuildContext context, state) {},
       builder: (BuildContext context, Object? state) {
+        print(
+            'test lattttttttttttttttt${HomeCubit.get(context).newLatlng.latitude}');
+        print('test longgggggggg${HomeCubit.get(context).newLatlng.longitude}');
         return Scaffold(
           appBar: detailspageappbar(
               context,
@@ -69,89 +72,94 @@ class _HomeTasksScreenState extends State<HomeTasksScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 18),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: CustomButtonWithdisable(
-                                  disabled: AppConstant.driverstatus == 0
-                                      ? true
-                                      : false,
-                                  buttonText: 'Start Trip',
-                                  onPressed: () async {
-                                    Map data = {
-                                      "Id": '0',
-                                      "ShiftId": HomeCubit.get(context)
-                                          .idcreationshift[0]
-                                          .toString(),
-                                      "TripId": "0",
-                                      "Longitude": HomeCubit.get(context)
-                                          .newLatlng
-                                          .longitude
-                                          .toString(),
-                                      "Latitude": HomeCubit.get(context)
-                                          .newLatlng
-                                          .latitude
-                                          .toString(),
-                                      "TripStatus": "2",
-                                    };
+                        HomeCubit.get(context).state
+                                is ChangeTripStatusLoadingState
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: CustomButtonWithdisable(
+                                        disabled: AppConstant.driverstatus == 0
+                                            ? true
+                                            : false,
+                                        buttonText: 'Start Trip',
+                                        onPressed: () async {
+                                          Map data = {
+                                            "Id": '0',
+                                            "ShiftId": HomeCubit.get(context)
+                                                .idcreationshift[0]
+                                                .toString(),
+                                            "TripId": "0",
+                                            "Longitude": HomeCubit.get(context)
+                                                .newLatlng
+                                                .longitude
+                                                .toString(),
+                                            "Latitude": HomeCubit.get(context)
+                                                .newLatlng
+                                                .latitude
+                                                .toString(),
+                                            "TripStatus": "2",
+                                          };
 
-                                    await HomeCubit.get(context)
-                                        .changetripStopStartStatus(
-                                      data: data,
-                                      context: context,
-                                      stt: true,
-                                    );
-                                    HomeCubit.get(context)
-                                        .startTimerForStartStop(
-                                            context: context, data: data);
-                                  },
-                                  buttonColor: Colors.amber,
+                                          await HomeCubit.get(context)
+                                              .changetripStopStartStatus(
+                                            data: data,
+                                            context: context,
+                                            stt: true,
+                                          );
+                                          HomeCubit.get(context)
+                                              .startTimerForStartStop(
+                                                  context: context, data: data);
+                                        },
+                                        buttonColor: Colors.amber,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 7,
+                                    ),
+                                    Expanded(
+                                      child: CustomButtonWithdisable(
+                                        disabled: AppConstant.driverstatus == 0
+                                            ? false
+                                            : true,
+                                        buttonText: 'End Trip',
+                                        onPressed: () async {
+                                          Map data = {
+                                            "Id": '0',
+                                            "ShiftId": HomeCubit.get(context)
+                                                .idcreationshift[0]
+                                                .toString(),
+                                            "TripId": "0",
+                                            "Longitude": HomeCubit.get(context)
+                                                .newLatlng
+                                                .longitude
+                                                .toString(),
+                                            "Latitude": HomeCubit.get(context)
+                                                .newLatlng
+                                                .latitude
+                                                .toString(),
+                                            "TripStatus": "3",
+                                          };
+
+                                          await HomeCubit.get(context)
+                                              .changetripStopStartStatus(
+                                            data: data,
+                                            context: context,
+                                            stt: true,
+                                          );
+                                          HomeCubit.get(context)
+                                              .stopTimerForStartStop();
+                                        },
+                                        buttonColor: Colors.green,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              const SizedBox(
-                                width: 7,
-                              ),
-                              Expanded(
-                                child: CustomButtonWithdisable(
-                                  disabled: AppConstant.driverstatus == 0
-                                      ? false
-                                      : true,
-                                  buttonText: 'End Trip',
-                                  onPressed: () async {
-                                    Map data = {
-                                      "Id": '0',
-                                      "ShiftId": HomeCubit.get(context)
-                                          .idcreationshift[0]
-                                          .toString(),
-                                      "TripId": "0",
-                                      "Longitude": HomeCubit.get(context)
-                                          .newLatlng
-                                          .longitude
-                                          .toString(),
-                                      "Latitude": HomeCubit.get(context)
-                                          .newLatlng
-                                          .latitude
-                                          .toString(),
-                                      "TripStatus": "3",
-                                    };
-
-                                    await HomeCubit.get(context)
-                                        .changetripStopStartStatus(
-                                      data: data,
-                                      context: context,
-                                      stt: true,
-                                    );
-                                    HomeCubit.get(context)
-                                        .stopTimerForStartStop();
-                                  },
-                                  buttonColor: Colors.green,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                         const SizedBox(
                           height: 30,
                         ),

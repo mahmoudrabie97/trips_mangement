@@ -30,6 +30,9 @@ class _AttendancePageState extends State<AttendancePage> {
   Widget build(BuildContext context) {
     // HomeShiftCubit.get(context).getCurrentLocation();
     //HomeShiftCubit.get(context).getCurrentLocation();
+    print(
+        'test lattttttttttttttttt${HomeCubit.get(context).newLatlng.latitude}');
+    print('test longgggggggg${HomeCubit.get(context).newLatlng.longitude}');
 
     return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {},

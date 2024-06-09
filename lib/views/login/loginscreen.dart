@@ -12,7 +12,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   final _formkey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
+  //final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phonenumber = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode field1 = FocusNode();
   final FocusNode field2 = FocusNode();
@@ -53,22 +55,44 @@ class LoginScreen extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(
+                      //     right: 20,
+                      //     left: 20,
+                      //   ),
+                      //   child: CustomTextFormField(
+                      //     controller: _emailController,
+                      //     validator: (value) {
+                      //       if (value!.isEmpty) {
+                      //         return 'please enter your email';
+                      //       } else if (!isEmailValid(value)) {
+                      //         return 'Invalid email format';
+                      //       }
+                      //       return null;
+                      //     },
+                      //     hintText: ' Email Adress',
+                      //     hinnntcolr: Colors.grey,
+                      //     focusnode: field1,
+                      //     onsubmitted: (value) {
+                      //       FocusScope.of(context).requestFocus(field2);
+                      //     },
+                      //   ),
+                      // ),
                       Padding(
                         padding: const EdgeInsets.only(
                           right: 20,
                           left: 20,
                         ),
                         child: CustomTextFormField(
-                          controller: _emailController,
+                          controller: _phonenumber,
+                          keyboardType: TextInputType.phone,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'please enter your email';
-                            } else if (!isEmailValid(value)) {
-                              return 'Invalid email format';
+                              return 'please enter your phonenumber';
                             }
                             return null;
                           },
-                          hintText: ' Email Adress',
+                          hintText: ' phone number',
                           hinnntcolr: Colors.grey,
                           focusnode: field1,
                           onsubmitted: (value) {
@@ -135,7 +159,7 @@ class LoginScreen extends StatelessWidget {
                                 buttonText: 'Login',
                                 onPressed: () {
                                   Map userdata = {
-                                    'userName': _emailController.text,
+                                    'userName': _phonenumber.text,
                                     'password': _passwordController.text,
                                     'grant_type': 'password'
                                   };
