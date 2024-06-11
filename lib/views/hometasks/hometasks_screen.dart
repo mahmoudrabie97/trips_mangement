@@ -38,7 +38,8 @@ class _HomeTasksScreenState extends State<HomeTasksScreen> {
             'test lattttttttttttttttt${HomeCubit.get(context).newLatlng.latitude}');
         print('test longgggggggg${HomeCubit.get(context).newLatlng.longitude}');
         return Scaffold(
-          appBar: detailspageappbar(
+          appBar:
+          detailspageappbar(
               context,
               Text('My Trips',
                   style: Theme.of(context)
