@@ -57,14 +57,16 @@ class TaskItemWidget extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 15, top: 10),
-                      child: Text(
-                        tripmodel.carName ?? '',
-                        style:
-                            Theme.of(context).textTheme.titleMedium!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                      ),
+                      child: Text(tripmodel.carName ?? '',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          )
+                          // Theme.of(context).textTheme.titleMedium!.copyWith(
+                          //       fontWeight: FontWeight.bold,
+                          //       fontSize: 14,
+                          //     ),
+                          ),
                     ),
                   ],
                 ),

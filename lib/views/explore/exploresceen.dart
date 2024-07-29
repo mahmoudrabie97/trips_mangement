@@ -60,10 +60,15 @@ class _ExplporeScreenState extends State<ExplporeScreen> {
           appBar: detailspageappbar(
               context,
               Text('Completed Transactions',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(fontSize: 18)),
+                  style: TextStyle(
+                    fontSize: 18,
+                  )
+                  //  Theme.of(context)
+                  //     .textTheme
+                  //     .titleLarge!
+                  //     .copyWith(fontSize: 18)
+
+                  ),
               false),
           body: LiquidPullRefresh(
             color: Colors.amber,

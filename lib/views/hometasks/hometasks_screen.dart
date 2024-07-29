@@ -41,10 +41,10 @@ class _HomeTasksScreenState extends State<HomeTasksScreen> {
           appBar: detailspageappbar(
               context,
               Text('My Trips',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(fontSize: 18)),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  )),
               false),
           body: LiquidPullRefresh(
             color: Colors.amber,
@@ -75,7 +75,9 @@ class _HomeTasksScreenState extends State<HomeTasksScreen> {
                         HomeCubit.get(context).state
                                 is ChangeTripStatusLoadingState
                             ? Center(
-                                child: CircularProgressIndicator(),
+                                child: CircularProgressIndicator(
+                                  color: Colors.amber,
+                                ),
                               )
                             : Padding(
                                 padding: const EdgeInsets.all(8.0),

@@ -50,10 +50,11 @@ class LoginScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(20),
-                        child: Text(
-                          'Login to your account ',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
+                        child: Text('Login to your account ',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            )),
                       ),
                       // Padding(
                       //   padding: const EdgeInsets.only(

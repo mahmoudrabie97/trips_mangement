@@ -45,10 +45,10 @@ class TripsScreen extends StatelessWidget {
           appBar: detailspageappbar(
               context,
               Text('Picked Transactions',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(fontSize: 18)),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  )),
               false),
           body: LiquidPullRefresh(
             color: Colors.amber,

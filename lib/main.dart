@@ -2,7 +2,6 @@ import 'package:drive_app/cubit/homecubit/homecubit.dart';
 import 'package:drive_app/network/local_network.dart';
 import 'package:drive_app/simpleblocobserver.dart';
 import 'package:drive_app/utilites/constants.dart';
-import 'package:drive_app/views/creation_trip/create_trip.dart';
 import 'package:drive_app/views/hometasks/bottomnavbar.dart';
 import 'package:drive_app/views/onboarding/onboardingscreen.dart';
 import 'package:flutter/material.dart';
